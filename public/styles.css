@@ -1,0 +1,114 @@
+* { /* CSS-RESET */
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+  user-select: none;
+}
+
+
+body {
+  font-family: 'Mukta', sans-serif;
+  color: rgb(92, 28, 27);
+  font-size: 0.5vw; /* remove when done */
+  background-color: rgb(1, 13, 31);
+  padding: 1.5% 5.9%;
+}
+
+.background-layer {
+  background-color: rgb(206, 167, 11);
+  padding: 0.4vw;
+}
+
+.top-text {
+  font-size: 3vw;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+}
+
+.tabs-container {
+  font-size: 2.5vw;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  width: auto;
+  height: auto;
+}
+
+.tab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 3.5vw;
+  border-radius: 0.5vw 0.5vw 0 0;
+
+  font-size: 2vw;
+
+
+  color: rgb(92, 28, 27);
+  background-color: rgb(254, 204, 0);
+}
+
+.tab-selected {
+  color: rgb(254, 204, 0);
+  background-color: rgb(92, 28, 27);
+}
+
+
+.overview, .uploaded-courses, .liked-courses {
+  width:29.5%;
+}
+
+.main {
+  background-color: rgb(207, 205, 194);
+  display: flex;
+  justify-content: center;
+  padding: 0.5vw;
+}
+
+
+.level {
+  font-size: 2vw;
+  width: 66%;
+  background: rgb(253, 252, 237);
+  border-radius: 0.5vw 0.5vw;
+  padding: 0.1vw 0.5vw;
+}
+
+.thumbnail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(254, 243, 209);
+  height: 5vw;
+  width: 12vw;
+}
+
+.upload-date {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.25vw;
+  font-size: 1.25vw;
+  color: rgb(253, 252, 237);
+  background: rgb(179, 172, 155);
+  width: auto;
+}
+
+.level-bottom { 
+  display: flex;
+}
+
+.bottom-right {
+  padding-left: 1vw;
+  line-height: 2vw;
+}
+
+.tags {
+  font-size: 1.5vw;
+}
