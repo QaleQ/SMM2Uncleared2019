@@ -1,63 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('partials/head') %>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SMM2 2019 Uncleared</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400&display=swap" rel="stylesheet">
-  <script src="script.js" defer></script>
-</head>
-
-<body>
-  <div class="background-layer">
-    <p class="top-text">
-      <span>[B] [Fa] [Fl] Uncleared Levels (2019) </span>
-      <span>[S] [X]</span>
-    </p>
-    <div class="tabs-container">
-      <div class="tab overview">Overview</div>
-      <div class="tab uploaded-courses tab-selected">Uploaded Courses</div>
-      <div class="tab liked-courses">Liked Courses</div>
-      <div class="tab world-records">[WR]</div>
-      <div class="tab first-clears">[FC]</div>
-    </div>
-    <% for (let level of queryData) { %> 
-    <div class="main">
-      <div class="level">
-        <div class="level-top">
-          <span class="level-style">[ <%= level.style %> ]</span>
-          <span class="level-title"><%= level.level_name %> </span>
+<div class="levels-list">
+  <% for (let level of queryData) { %>
+    <div class="level">
+      <div class="level-top">
+        <img class="style-image" src="<%= styleImages[level.style] %>" alt="level.style">
+      <span class="level-title"><%= level.level_name %> </span>
+      </div>
+      <div class="level-bottom">
+        <div class="bottom-left">
+          <div class="thumbnail">[THUMB]</div>
+          <div class="upload-date">
+            <span><%= level.upload_date_day %> </span>
+            <span><%= level.upload_date_time %> </span>
+          </div>
         </div>
-        <div class="level-bottom">
-          <div class="bottom-left">
-            <div class="thumbnail">[THUMB]</div>
-            <div class="upload-date">
-              <span><%= level.upload_date_day %> </span>
-              <span><%= level.upload_date_time %> </span>
-            </div>
-          </div>
-          <div class="bottom-right">
-            <p class="likes-feet">
-              <span class="likes">[L] <%= level.likes %> </span>
-              <span class="footprints">[F] <%= level.footprints %></span>
-            </p>
-            <p class="tags">
-              <span class="tag1">[T] <%= level.tag1 %></span>
-              <% if (level.tag2 != null) { %> 
-                <span class="tag2">[T] <%= level.tag2 %></span>
-              <% } %> 
-            </p>
-          </div>
+        <div class="bottom-right">
+          <p class="likes-feet">
+            <span class="likes">[L] <%= level.likes %> </span>
+            <span class="footprints">[F] <%= level.footprints %></span>
+          </p>
+          <p class="tags">
+            <span class="tag1">[T] <%= level.tag1 %></span>
+            <% if (level.tag2 != null) { %>
+            <span class="tag2">[T] <%= level.tag2 %></span>
+            <% } %>
+          </p>
         </div>
       </div>
     </div>
-    <% } %> 
-  </div>
-</body>
+  <% } %>
+</div>
 
-</html>
+<%- include('partials/foot')  %>

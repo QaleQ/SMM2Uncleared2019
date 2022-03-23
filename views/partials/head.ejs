@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SMM2 2019 Uncleared</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400&display=swap" rel="stylesheet" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="background-layer">
+    <section class="top-content">
+      <p class="top-text">
+        <span>[B] [Fa] [Fl] Uncleared Levels (2019)</span>
+        <span>[S] [X]</span>
+      </p>
+      <div class="tabs-container">
+        <div class="tab tab-big overview">Overview</div>
+        <div class="tab tab-big uploaded-courses active-tab">Uploaded Courses</div>
+        <div class="tab tab-big liked-courses">Liked Courses</div>
+        <% if (typeof req !== 'undefined' && req.session.user_id) { %> 
+        <div class="tab tab-small log-out">
+          <form action="/logout" method="POST" class="log-out-form ">
+            <button class="log-out-btn">
+              <img class="tab-svg" src="https://www.svgrepo.com/show/132889/logout.svg" alt="Log out" />
+            </button>
+          </form>
+        </div>
+        <% } else { %>
+        <div class="tab tab-small login">
+          <img class="tab-svg" src="https://www.svgrepo.com/show/9778/login.svg" alt="Log in" />
+        </div>
+        <% } %>
+        <div class="tab tab-small signup">
+          <img class="tab-svg" src="https://www.svgrepo.com/show/335051/create.svg" alt="Sign up">
+        </div>
+      </div>
+    </section>
+    <section class="page-content">
