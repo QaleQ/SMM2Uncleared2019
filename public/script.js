@@ -1,5 +1,7 @@
 let arrTabClass = document.querySelectorAll('.tab');
-let arrLevelClass = document.querySelectorAll('.level')
+let logInButton = document.querySelector('.login');
+let signUpButton = document.querySelector('.signup');
+let arrLevelClass = document.querySelectorAll('.level');
 
 let currentExpandedLevel;
 
@@ -7,9 +9,15 @@ for (let div of arrTabClass) {
   div.addEventListener('click', () => {
     changeActiveTab(div);
   })
-  console.log(div)
 }
 
+logInButton.addEventListener('click', () => {
+  window.location.replace('./login')
+})
+
+signUpButton.addEventListener('click', () => {
+  window.location.replace('./signup')
+})
 
 function changeActiveTab(newTab) {
   for (let div of arrTabClass) {
