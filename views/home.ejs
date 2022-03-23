@@ -48,7 +48,9 @@
             </p>
             <p class="tags">
               <span class="tag1">[T] <%= level.tag1 %></span>
-              <span class="tag2">[T] <%= level.tag2 %></span>
+              <% if (level.tag2 != null) { %> 
+                <span class="tag2">[T] <%= level.tag2 %></span>
+              <% } %> 
             </p>
           </div>
         </div>

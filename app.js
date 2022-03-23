@@ -20,7 +20,11 @@ async function main() {
   });
 
 let [queryData, []] = await connection.query(`
-    SELECT * FROM levels
+    SELECT
+    *
+    ,DATE_FORMAT(upload_datetime, "%d-%m-%Y") AS upload_date_day
+    ,TIME(upload_datetime) AS upload_date_time
+    FROM levels
     ORDER BY levels.id ASC
     LIMIT 10;
   `)

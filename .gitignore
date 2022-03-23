@@ -2,3 +2,5 @@
 node_modules/
 references/
 todo
+test.js
+request.rest
