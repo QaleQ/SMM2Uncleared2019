@@ -44,7 +44,7 @@ async function main() {
   let [queryData, []] = await connection.query(`
     SELECT
     *
-    ,DATE_FORMAT(upload_datetime, "%d-%m-%Y") AS upload_date_day
+    ,DATE_FORMAT(upload_datetime, "%d/%m/%Y") AS upload_date_day
     ,TIME(upload_datetime) AS upload_date_time
     FROM levels
     ORDER BY upload_datetime ASC
@@ -78,10 +78,6 @@ async function main() {
     res.render("signup");
   });
 
-  app.get("/signup", (req, res) => {
-    res.render("signup");
-  });
-
   app.post("/signup", async (req, res) => {
     try {
       const { username, password, email } = req.body;
@@ -104,9 +100,4 @@ async function main() {
     req.session.destroy();
     res.redirect("/");
   });
-
-
-  app.get('/naked', (req, res) => {
-    res.render('naked')
-  })
 }

@@ -22,9 +22,9 @@ signUpButton.addEventListener('click', () => {
 function changeActiveTab(newTab) {
   for (let div of arrTabClass) {
     if (div == newTab) {
-      div.classList.add('tab-selected');
+      div.classList.add('active-tab');
       continue;
     }
-    div.classList.remove('tab-selected');
+    div.classList.remove('active-tab');
   }
 }

@@ -17,13 +17,25 @@
         </div>
         <div class="bottom-right">
           <p class="likes-feet">
-            <span class="likes">[L] <%= level.likes %> </span>
-            <span class="footprints">[F] <%= level.footprints %></span>
+            <span class="likes">
+              <img class="likes-svg" src="assets/smm2_heart-cropped.svg" alt="Likes">
+              <%= level.likes %>
+            </span>
+            <span class="footprints">
+              <img class="feet-svg" src="assets/smm2_feet-cropped.svg" alt="Footprints">
+              <%= level.footprints %>
+            </span>
           </p>
           <p class="tags">
-            <span class="tag1">[T] <%= level.tag1 %></span>
+            <span class="tag">
+              <img class="tag-svg" src="assets/smm2_tag-cropped.svg" alt="Tag1">
+              <%= level.tag1 %>
+            </span>
             <% if (level.tag2 != null) { %>
-            <span class="tag2">[T] <%= level.tag2 %></span>
+            <span class="tag">
+              <img class="tag-svg tag2" src="assets/smm2_tag-cropped.svg" alt="Tag2">
+              <%= level.tag2 %>
+            </span>
             <% } %>
           </p>
         </div>
