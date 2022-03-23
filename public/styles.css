@@ -46,6 +46,7 @@ body {
   height: 3.6vw;
   display: flex;
   justify-content: space-between;
+  
 }
 
 .tab {
@@ -78,7 +79,12 @@ body {
 }
 
 .tab-svg {
+  filter: invert(13%) sepia(97%) saturate(770%) hue-rotate(325deg) brightness(96%) contrast(99%);
   width:60%;
+}
+
+.tab-small:hover .tab-svg {
+  filter: invert(67%) sepia(93%) saturate(497%) hue-rotate(0deg) brightness(104%) contrast(103%);
 }
 
 .lot-out-btn
@@ -95,8 +101,9 @@ body {
 
 .page-content {
   flex-grow: 1;
-  background-color: rgb(207, 205, 194);
+  background-color:  rgb(207, 205, 194);
   overflow:scroll;
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) inset; */
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
