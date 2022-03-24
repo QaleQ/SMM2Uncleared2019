@@ -1,7 +1,7 @@
-let arrTabClass = document.querySelectorAll('.tab');
-let logInButton = document.querySelector('.login');
-let signUpButton = document.querySelector('.signup');
-let arrLevelClass = document.querySelectorAll('.level');
+const arrTabClass = document.querySelectorAll('.tab');
+const logInButton = document.querySelector('#login');
+const signUpButton = document.querySelector('#signup');
+const arrLevelClass = document.querySelectorAll('.level');
 
 let currentExpandedLevel;
 

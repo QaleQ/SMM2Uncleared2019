@@ -19,7 +19,7 @@ body {
   background-color: rgb(1, 13, 31);
 }
 
-.background-layer {
+#background-layer {
   max-width: 90%;
   max-height: 90%;
 
@@ -36,13 +36,13 @@ body {
   flex-direction: column;
 }
 
-.top-text {
+#top-text {
   font-size: 3vw;
   display: flex;
   justify-content: space-between;
 }
 
-.tabs-container {
+#tabs-container {
   height: 3.6vw;
   display: flex;
   justify-content: space-between;
@@ -87,19 +87,19 @@ body {
   filter: invert(67%) sepia(93%) saturate(497%) hue-rotate(0deg) brightness(104%) contrast(103%);
 }
 
-.lot-out-btn
-.log-out-form {
+#lot-out-btn
+#log-out-form {
   height:inherit;
   width:inherit;
 }
 
-.log-out-btn {
+#log-out-btn {
   display:flex;
   justify-content: center;
   align-items: center;
 }
 
-.page-content {
+#page-content {
   flex-grow: 1;
   background-color:  rgb(207, 205, 194);
   overflow:scroll;
@@ -108,7 +108,7 @@ body {
   scrollbar-width: none;  /* Firefox */
 }
 
-.page-content::-webkit-scrollbar {
+#page-content::-webkit-scrollbar {
   display: none;
 }
 
@@ -117,7 +117,7 @@ body {
 
 /* levels */
 
-.levels-list {
+#levels-list {
   display:flex;
   flex-direction: column;
   align-items: center;
