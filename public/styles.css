@@ -81,7 +81,8 @@ body {
   width:60%;
 }
 
-.tab:hover {
+.tab:hover,
+.form-button:hover {
   color: rgb(254, 204, 0);
   background-color: rgb(92, 28, 27);
 }
@@ -104,8 +105,10 @@ body {
 #page-content {
   flex-grow: 1;
   background-color:  rgb(207, 205, 194);
+  display:flex;
+  flex-direction: column;
+  align-items: center;
   overflow:scroll;
-  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) inset; */
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
@@ -129,12 +132,7 @@ body {
 
 /* levels */
 
-#levels-list {
-  display:flex;
-  flex-direction: column;
-  align-items: center;
-}
-
+.form,
 .level {
   font-size: 2vw;
   width: 66%;
@@ -145,6 +143,10 @@ body {
 
   display:flex;
   flex-direction: column;
+}
+
+.form {
+  margin-top: 100px;
 }
 
 .level-top {
@@ -230,3 +232,42 @@ body {
 .tag2 {
   margin-left: 1.5vw;
 }
+
+#signup-form,
+#login-form {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form span {
+  width: 50%;
+  text-align: center;
+}
+
+form input {
+  margin: 4px;
+  width:50%;
+  font-size: 1em;
+  background:white;
+  border: 1px solid grey;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.form-button {
+  font-size: 1em;
+  align-self: end;
+  height: 50px;
+  width: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(254, 204, 0);
+  color: rgb(92, 28, 27);
+  border-radius: 10px;
+  margin-bottom: 4px;
+}
+

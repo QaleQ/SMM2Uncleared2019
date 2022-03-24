@@ -3,10 +3,12 @@
 <% if (typeof err !== 'undefined') { %>
   Something went wrong: <%= err %>
 <% } %>
-<form action="/login" method="POST">
-  <input type="text" name="username" placeholder="Username" />
-  <input type="password" name="password" placeholder="Password" />
-  <button>Log in</button>
-</form>
-
+<div class="form">
+  <form autocomplete="off" action="/login" method="POST" id="login-form">
+    <span>Log in</span>
+    <input type="text" name="username" placeholder="Username" />
+    <input type="password" name="password" placeholder="Password" />
+    <button class="form-button">Log in</button>
+  </form>
+</div>
 <%- include('partials/foot') %>
