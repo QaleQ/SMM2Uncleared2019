@@ -10,11 +10,7 @@ const session = require("express-session");
 app.set("view engine", "ejs");
 
 app.use(express.static(`${__dirname}/public`));
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
+app.use(express.urlencoded({extended: true}));
 app.use(
   session({
     secret: process.env.SECRET,
@@ -45,7 +41,7 @@ async function main() {
     SELECT
     *
     ,DATE_FORMAT(upload_datetime, "%d/%m/%Y") AS upload_date_day
-    ,TIME(upload_datetime) AS upload_date_time
+    ,TIME_FORMAT(upload_datetime, "%h:%i") AS upload_date_time
     FROM levels
     ORDER BY upload_datetime ASC
     LIMIT 10;

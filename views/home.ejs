@@ -6,38 +6,32 @@
         <img class="style-image" src="<%= styleImages[level.style] %>" alt="level.style">
       <span class="level-title"><%= level.level_name %> </span>
       </div>
-      <div class="level-bottom">
-        <div class="bottom-left">
-          <div class="thumbnail">[THUMB]</div>
-          <div class="upload-date">
-            <span><%= level.upload_date_day %> </span>
-            <span><%= level.upload_date_time %> </span>
-          </div>
+      <div class="bottom-left">
+        <div class="thumbnail">[THUMBNAIL]</div>
+        <div class="upload-date">
+          <span><%= level.upload_date_day %> </span>
+          <span><%= level.upload_date_time %> </span>
         </div>
-        <div class="bottom-right">
-          <p class="likes-feet">
-            <span class="likes">
-              <img class="likes-svg" src="assets/smm2_heart-cropped.svg" alt="Likes">
-              <%= level.likes %>
-            </span>
-            <span class="footprints">
-              <img class="feet-svg" src="assets/smm2_feet-cropped.svg" alt="Footprints">
-              <%= level.footprints %>
-            </span>
-          </p>
-          <p class="tags">
-            <span class="tag">
-              <img class="tag-svg" src="assets/smm2_tag-cropped.svg" alt="Tag1">
-              <%= level.tag1 %>
-            </span>
-            <% if (level.tag2 != null) { %>
-            <span class="tag">
-              <img class="tag-svg tag2" src="assets/smm2_tag-cropped.svg" alt="Tag2">
-              <%= level.tag2 %>
-            </span>
-            <% } %>
-          </p>
-        </div>
+      </div>
+      <div class="bottom-right">
+        <p class="likes-feet">
+            <img class="likes-svg" src="assets/smm2_heart-cropped.svg" alt="Likes">
+            <%= level.likes %>
+            <img class="feet-svg" src="assets/smm2_feet-cropped.svg" alt="Footprints">
+            <%= level.footprints %>
+        </p>
+        <p class="tags">
+          <span class="tag">
+            <img class="tag-svg" src="assets/smm2_tag-cropped.svg" alt="Tag1">
+            <%= level.tag1 %>
+          </span>
+          <% if (level.tag2 != null) { %>
+          <span class="tag">
+            <img class="tag-svg" src="assets/smm2_tag-cropped.svg" alt="Tag2">
+            <%= level.tag2 %>
+          </span>
+          <% } %>
+        </p>
       </div>
     </div>
   <% } %>
