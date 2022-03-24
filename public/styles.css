@@ -64,10 +64,8 @@ body {
   color: rgb(254, 204, 0);
   background-color: rgb(92, 28, 27);
 }
-
-.tab:hover {
-  color: rgb(254, 204, 0);
-  background-color: rgb(92, 28, 27);
+.active-tab .tab-svg {
+  filter: invert(67%) sepia(93%) saturate(497%) hue-rotate(0deg) brightness(104%) contrast(103%);
 }
 
 .tab-big {
@@ -83,7 +81,11 @@ body {
   width:60%;
 }
 
-.tab-small:hover .tab-svg {
+.tab:hover {
+  color: rgb(254, 204, 0);
+  background-color: rgb(92, 28, 27);
+}
+.tab:hover .tab-svg {
   filter: invert(67%) sepia(93%) saturate(497%) hue-rotate(0deg) brightness(104%) contrast(103%);
 }
 

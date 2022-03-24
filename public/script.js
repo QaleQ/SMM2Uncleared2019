@@ -1,30 +1,25 @@
-const arrTabClass = document.querySelectorAll('.tab');
-const logInButton = document.querySelector('#login');
-const signUpButton = document.querySelector('#signup');
+const arrTabs = {
+  "overview": document.querySelector('#overview'),
+  "uploaded-courses": document.querySelector('#uploaded-courses'),
+  "liked-courses": document.querySelector('#liked-courses'),
+  "login": document.querySelector('#login'),
+  "signup": document.querySelector('#signup'),
+}
+
 const arrLevelClass = document.querySelectorAll('.level');
 
 let currentExpandedLevel;
 
-for (let div of arrTabClass) {
-  div.addEventListener('click', () => {
-    changeActiveTab(div);
-  })
+for (let tab in arrTabs) {
+  if (`/${tab}` !== window.location.pathname) continue;
+  arrTabs[tab].classList.add('active-tab')
+  break;
 }
 
-logInButton.addEventListener('click', () => {
+arrTabs.login.addEventListener('click', () => {
   window.location.replace('./login')
 })
 
-signUpButton.addEventListener('click', () => {
+arrTabs.signup.addEventListener('click', () => {
   window.location.replace('./signup')
 })
-
-function changeActiveTab(newTab) {
-  for (let div of arrTabClass) {
-    if (div == newTab) {
-      div.classList.add('active-tab');
-      continue;
-    }
-    div.classList.remove('active-tab');
-  }
-}
