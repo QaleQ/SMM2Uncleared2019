@@ -86,7 +86,7 @@ async function main() {
       let query = await connection.query(`INSERT INTO users SET ?`, userData);
       req.session.user_id = query.id;
       req.session.username = query.username;
-      res.status(201).send();
+      res.redirect('/')
     } catch (err) {
       res.render("signup", { err });
     }

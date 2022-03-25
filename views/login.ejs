@@ -1,14 +1,12 @@
 <%- include('partials/head') %>
 
 <% if (typeof err !== 'undefined') { %>
-  Something went wrong: <%= err %>
+  <span class="error">Something went wrong: <%= err %> </span>
 <% } %>
-<div class="form">
-  <form autocomplete="off" action="/login" method="POST" id="login-form">
-    <span>Log in</span>
-    <input type="text" name="username" placeholder="Username" />
-    <input type="password" name="password" placeholder="Password" />
-    <button class="form-button">Log in</button>
-  </form>
-</div>
+<form autocomplete="off" class="form" action="/login" method="POST" id="login-form">
+  <span>Log in</span>
+  <input type="text" name="username" placeholder="Username" />
+  <input type="password" name="password" placeholder="Password" />
+  <button class="form-button">Log in</button>
+</form>
 <%- include('partials/foot') %>
