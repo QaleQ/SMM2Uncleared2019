@@ -20,9 +20,9 @@
       </p>
       <div id="tabs-container">
         <div class="tab tab-big" id="overview">Overview</div>
-        <div class="tab tab-big" id="uploaded-courses"">Uploaded Courses</div>
-        <div class="tab tab-big" id="liked-courses">Liked Courses</div>
-        <% if (typeof req !== 'undefined' && req.session.user_id) { %> 
+        <div class="tab tab-big" id="levels"">Uploaded Courses</div>
+        <div class="tab tab-big" id="filter">Filter Courses</div>
+        <% if (typeof req !== 'undefined' && req.session.username) { %> 
         <div class="tab tab-small" id="logout">
           <form action="/logout" method="POST" id="log-out-form ">
             <button id="log-out-btn">
@@ -30,14 +30,17 @@
             </button>
           </form>
         </div>
+        <div class="tab tab-small" id="username">
+          <%= req.session.username %> 
+        </div>
         <% } else { %>
         <div class="tab tab-small" id="login">
           <img class="tab-svg" src="https://www.svgrepo.com/show/9778/login.svg" alt="Log in" />
         </div>
-        <% } %>
         <div class="tab tab-small" id="signup">
           <img class="tab-svg" src="https://www.svgrepo.com/show/335051/create.svg" alt="Sign up">
         </div>
+        <% } %>
       </div>
     </section>
     <section id="page-content">

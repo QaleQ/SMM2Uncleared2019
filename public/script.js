@@ -1,25 +1,27 @@
-const arrTabs = {
+const tabsArr = {
   "overview": document.querySelector('#overview'),
-  "uploaded-courses": document.querySelector('#uploaded-courses'),
-  "liked-courses": document.querySelector('#liked-courses'),
+  "levels": document.querySelector('#levels'),
+  "filter": document.querySelector('#filter'),
   "login": document.querySelector('#login'),
   "signup": document.querySelector('#signup'),
 }
 
-const arrLevelClass = document.querySelectorAll('.level');
+const classLevelArr = document.querySelectorAll('.level');
 
 let currentExpandedLevel;
 
-for (let tab in arrTabs) {
+for (let tab in tabsArr) {
+  tabsArr[tab].addEventListener('click', () => {
+    window.location.replace(`./${tab}`)
+  })
   if (`/${tab}` !== window.location.pathname) continue;
-  arrTabs[tab].classList.add('active-tab')
-  break;
+  tabsArr[tab].classList.add('active-tab')
 }
 
-arrTabs.login.addEventListener('click', () => {
-  window.location.replace('./login')
-})
+// tabsArr.login.addEventListener('click', () => {
+//   window.location.replace('./login')
+// })
 
-arrTabs.signup.addEventListener('click', () => {
-  window.location.replace('./signup')
-})
+// tabsArr.signup.addEventListener('click', () => {
+//   window.location.replace('./signup')
+// })
