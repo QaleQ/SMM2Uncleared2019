@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="test.js" defer></script>
+</head>
+<body>
+  <% if (typeof err != 'undefined') { %>
+    <span class="err">Something went wrong: <%= err.message %> </span>
+  <% } %>
+  <form action="/filter" method="POST">
+    <p>
+      <label for="match_field">Match:</label>
+      <select name="match_field" id="match_field">
+        <option value="level_name">Level name</option>
+        <option value="description">Level description</option>
+        <option value="level_code">Level code</option>
+      </select>
+      <select name="match_option" id="match_option">
+        <option value="contains">contains</option>
+        <option value="starts_with">starts with</option>
+        <option value="ends_with">ends with</option>
+      </select>
+      <input type="input" name="match_value">
+    </p>
+    <p>
+      <label for="upload_date_start">Uploaded date between: </label>
+      <input type="date" name="upload_date_start" id="upload_date_start"
+      value="2019-06-27"
+      min="2019-06-27" max="2019-12-31">
+      <label for="upload_date_end">and</label>
+      <input type="date" name="upload_date_end" id="upload_date_end"
+      value="2019-12-31"
+      min="2019-06-27" max="2019-12-31">
+    </p>
+    <p>
+      <label for="style">Style:</label>
+      <select name="style" id="style">
+        <option value="">Any</option>
+        <option value="SMB1">Super Mario Bros. 1</option>
+        <option value="SMB3">Super Mario Bros. 3</option>
+        <option value="SMW">Super Mario World</option>
+        <option value="NSMBU">New Super Mario Bros. U</option>
+        <option value="SM3DW">Super Mario 3D World</option>
+      </select>
+    </p>
+    <p>
+      <label for="theme">Theme:</label>
+      <select name="theme" id="theme">
+        <option value="">Any</option>
+        <option value="Overworld">Overworld</option>
+        <option value="Castle">Castle</option>
+        <option value="Sky">Sky</option>
+        <option value="Snow">Snow</option>
+        <option value="Ghost_house">Ghost house</option>
+        <option value="Forest">Forest</option>
+        <option value="Underground">Underground</option>
+        <option value="Desert">Desert</option>
+        <option value="Airship">Airship</option>
+        <option value="Underwater">Underwater</option>
+      </select>
+    </p>
+    <p>
+      <label for="tags">Tags:</label>
+      <select name="tag1" id="tag1">
+        <option value="">Any</option>
+        <option value="Standard">Standard</option>
+        <option value="Themed">Themed</option>
+        <option value="Short and sweet">Short and sweet</option>
+        <option value="Speedrun">Speedrun</option>
+        <option value="Puzzle solving">Puzzle solving</option>
+        <option value="Multiplayer versus">Multiplayer versus</option>
+        <option value="Autoscroll">Autoscroll</option>
+        <option value="Auto mario">Auto mario</option>
+        <option value="Music">Music</option>
+        <option value="Single player">Single player</option>
+        <option value="Technical">Technical</option>
+        <option value="Boss_battle">Boss battle</option>
+        <option value="Link">Link</option>
+        <option value="Art">Art</option>
+        <option value="Shooter">Shooter</option>
+        <option value="None">None</option>
+      </select>
+      <label for="tag2">and</label>
+      <select name="tag2" id="tag2">
+        <option value="">Any</option>
+        <option value="Standard">Standard</option>
+        <option value="Themed">Themed</option>
+        <option value="Short and sweet">Short and sweet</option>
+        <option value="Speedrun">Speedrun</option>
+        <option value="Puzzle solving">Puzzle solving</option>
+        <option value="Multiplayer versus">Multiplayer versus</option>
+        <option value="Autoscroll">Autoscroll</option>
+        <option value="Auto mario">Auto mario</option>
+        <option value="Music">Music</option>
+        <option value="Single_player">Single player</option>
+        <option value="Technical">Technical</option>
+        <option value="Boss battle">Boss battle</option>
+        <option value="Link">Link</option>
+        <option value="Art">Art</option>
+        <option value="Shooter">Shooter</option>
+      </select>
+    </p>
+    <p>
+    <label for="first_sort">Sort by:</label>
+    <select name="first_sort" id="sort">
+      <option value="attempts">Attempts</option>
+      <option value="footprints">Footprints</option>
+      <option value="upload_datetime" selected>Upload time</option>
+      <option value="clear_check_time">Clear-check time</option>
+      <option value="likes">Likes</option>
+      <option value="boos">Boos</option>
+      <option value="style">Style</option>
+      <option value="theme">Theme</option>
+    </select>
+    <label for="sort_order">Sort order:</label>
+    <select name="sort_order" id="sort_order">
+      <option value="ASC">Ascending</option>
+      <option value="DESC">Descending</option>
+    </select>
+  </p>
+  <button>Submit</button>
+  </form>
+</body>
+</html>

@@ -11,11 +11,8 @@ app.set("view engine", "ejs");
 
 app.use(express.static(`${__dirname}/public`));
 app.use(express.urlencoded({extended: true}));
-app.use(
-  session({
-    secret: process.env.SECRET,
-  })
-);
+app.use(session({secret: process.env.SECRET}));
+
 
 app.listen(3000);
 
@@ -27,6 +24,16 @@ const styleImages = {
   'SM3DW': 'https://static.wikia.nocookie.net/logopedia/images/e/e7/Logo_EN_-_Super_Mario_3D_World.png'
 }
 
+let queryBase = [
+  'SELECT *',
+  ',DATE_FORMAT(upload_datetime, "%d/%m/%Y") AS upload_date_day',
+  ',TIME_FORMAT(upload_datetime, "%H:%i") AS upload_date_time',
+  'FROM levels',
+  'WHERE NOT ISNULL(id)',
+  ''
+]
+
+
 main();
 
 async function main() {
@@ -37,15 +44,10 @@ async function main() {
     database: process.env.MYSQL_DB,
   });
 
-  let [queryData, []] = await connection.query(`
-    SELECT
-    *
-    ,DATE_FORMAT(upload_datetime, "%d/%m/%Y") AS upload_date_day
-    ,TIME_FORMAT(upload_datetime, "%h:%i") AS upload_date_time
-    FROM levels
-    ORDER BY upload_datetime ASC
-    LIMIT 10;
-  `);
+  connection.config.namedPlaceholders = true;
+  let queryArray = [...queryBase]
+  queryArray.push("ORDER BY upload_datetime ASC LIMIT 10")
+  let [queryData, []] = await connection.query(queryArray.join('\n'));
 
   app.get("/", (req, res) => {
     res.render("home", { queryData, req, styleImages });
@@ -96,4 +98,64 @@ async function main() {
     req.session.destroy();
     res.redirect("/");
   });
+
+  app.get('/filter', (req, res) => {
+    res.render('filter');
+  })
+
+  app.post('/filter', async (req, res) => {
+    try {
+      let queryArr = [...queryBase];
+      let {
+        match_field,
+        match_option,
+        match_value,
+        upload_date_start,
+        upload_date_end,
+        style,
+        theme,
+        tag1,
+        tag2,
+        first_sort,
+        sort_order
+      } = req.body;
+  
+      if (match_value) {  
+        let string = `%${match_value}%`;
+        if (match_option == 'starts_with') string = string.slice(1)
+        else if (match_option == 'ends_with') string = string.slice(0, -1)
+  
+        req.body.match_value = string;
+  
+        queryArr.push(`AND ${connection.escapeId(match_field)} LIKE :match_value`);
+      }
+  
+      if (upload_date_start != '2019-06-27' || upload_date_end != '2019-12-31')
+        queryArr.push(`AND (upload_datetime BETWEEN :upload_date_start AND :upload_date_end)`);
+  
+      if (style) queryArr.push(`\nAND style=:style`);
+      if (theme) queryArr.push(`\nAND theme=:theme`);
+      if (tag1 || tag2) {
+        if (tag1 && tag2 && tag1 !== tag2) {
+          queryArr.push(`AND (tag1=:tag1 OR tag1=:tag2)`);
+          queryArr.push(`AND (tag2=:tag1 OR tag2=:tag2)`);
+        }
+        else {
+          let tag = tag1 ? tag1 : tag2;
+          req.body.tag = tag;
+          queryArr.push(`AND (tag1=:tag OR tag2=:tag)`)
+        }
+      }
+
+      let validSortOrders = ['ASC', 'DESC'];
+      if (!validSortOrders.includes(sort_order)) throw new Error ('Invalid sort order')
+      queryArr.push(`ORDER BY ${connection.escapeId(first_sort)} ${sort_order}\nLIMIT 10;`)
+
+      let filteredData = await connection.query(queryArr.join('\n'), req.body)
+      if (!filteredData[0].length) throw new Error ('No results!')
+      res.render("home", { queryData: filteredData[0], req, styleImages });
+    } catch (err) {
+      res.render('filter', {err})
+    }
+  })
 }
