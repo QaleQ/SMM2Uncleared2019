@@ -105,7 +105,7 @@ async function main() {
     res.render('filter');
   })
 
-  app.post('/filter', async (req, res) => {
+  app.post('/levels', async (req, res) => {
     try {
       let queryArr = [...queryBase];
       let {
@@ -136,7 +136,7 @@ async function main() {
         queryArr.push(`AND (upload_datetime BETWEEN :upload_date_start AND :upload_date_end)`);
   
       if (style) queryArr.push(`AND style=:style`);
-      if (theme) queryArr.push(`AND theme=:theme`);
+      if (theme) queryArr.push(`\nAND theme=:theme`);
       if (tag1 || tag2) {
         if (tag1 && tag2 && tag1 !== tag2) {
           queryArr.push(`AND (tag1=:tag1 OR tag1=:tag2)`);

@@ -144,6 +144,9 @@ body {
   padding: 0.1em 0.6em;
   margin: 0.4em 0;
 }
+.form-big {
+  height: 20em;
+}
 
 .level {
   display: grid;
@@ -228,6 +231,7 @@ body {
   margin-right: 0.2em;
 }
 
+.form-big,
 .form {
   box-sizing: border-box;
   padding-bottom: 0.5em;
@@ -263,4 +267,45 @@ body {
 .error {
   top: 15%;
   position: absolute;
+}
+
+
+.form-big {
+  background:rgb(253, 252, 237);
+  display:grid;
+  grid-auto-rows: min-content;
+  padding: 0.2em 0.5em;
+  gap: 0.7em;
+  border-radius: 0.5em;
+}
+
+.form-big p {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.form-big input {
+  border: 1px solid var(--main-dark-color);
+  border-radius: 0.3em;
+}
+
+.form-big select {
+  text-align: center;
+  border: 1px solid var(--main-dark-color);
+  border-radius: 0.3em;
+  color: var(--main-dark-color);
+  font-size: 1em;
+  height: 80%;
+}
+
+.form-big button {
+  color: var(--main-dark-color);
+  font-family: 'Mukta', sans-serif;
+  font-size: 1.3em;
+  border-radius: 0.3em;
+  padding: 1.2em 4em;
+  justify-self: end;
+  color: var(--main-dark-color);
+  background-color: var(--main-light-color);
 }
