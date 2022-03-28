@@ -103,7 +103,7 @@ async function main() {
   });
 
   app.get('/filter', (req, res) => {
-    res.render('filter');
+    res.render('filter', { req });
   })
 
   app.post('/levels', async (req, res) => {
@@ -163,6 +163,6 @@ async function main() {
   })
 
   app.get('/overview', (req, res) => {
-    res.render('overview');
+    res.render('overview', { req });
   })
 }

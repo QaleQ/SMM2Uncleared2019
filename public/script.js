@@ -4,13 +4,16 @@ const tabsArr = {
   "filter": document.querySelector('#filter'),
   "login": document.querySelector('#login'),
   "signup": document.querySelector('#signup'),
+  "logout": document.querySelector('#logout'),
+  "username": document.querySelector('#username')
 }
 
 const classLevelArr = document.querySelectorAll('.level');
 let currentExpandedLevel;
 
 for (let tab in tabsArr) {
-  let tabUrl = `./${tab}`;
+  if (!tabsArr[tab]) continue;
+  let tabUrl = `/${tab}`;
   tabsArr[tab].addEventListener('click', () => {
     window.location.replace(tabUrl);
   })
