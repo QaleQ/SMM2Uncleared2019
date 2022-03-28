@@ -1,38 +1,58 @@
 <%- include('partials/head') %>
 
   <% for (let level of queryData) { %>
+    <!-- DEV ENV OLD -->
     <div class="level">
-      <div class="level-top">
+      <section id="level-top">
         <img class="style-image" src="<%= styleImages[level.style] %>" alt="level.style">
-      <span class="level-title"><%= level.level_name %> </span>
-      </div>
-      <div class="bottom-left">
-        <div class="thumbnail">[THUMBNAIL]</div>
-        <div class="upload-date">
-          <span><%= level.upload_date_day %> </span>
-          <span><%= level.upload_date_time %> </span>
+        <%= level.level_name %>
+      </section>
+      <section id="thumb-likes-feet">
+        <div class="thumb-and-date">
+          <div class="thumbnail">[THUMBNAIL]</div>
+          <div class="upload-date">
+            <span><%= level.upload_date_day %></span>
+            <span><%= level.upload_date_time %></span>
+          </div>
         </div>
-      </div>
-      <div class="bottom-right">
-        <p class="likes-feet">
-            <img class="likes-svg" src="assets/smm2_heart-cropped.svg" alt="Likes">
-            <%= level.likes %>
-            <img class="feet-svg" src="assets/smm2_feet-cropped.svg" alt="Footprints">
-            <%= level.footprints %>
-        </p>
-        <p class="tags">
-          <span class="tag">
-            <img class="tag-svg" src="assets/smm2_tag-cropped.svg" alt="Tag1">
-            <%= level.tag1 %>
-          </span>
-          <% if (level.tag2 != null) { %>
-          <span class="tag">
-            <img class="tag-svg" src="assets/smm2_tag-cropped.svg" alt="Tag2">
-            <%= level.tag2 %>
-          </span>
-          <% } %>
-        </p>
-      </div>
+        <div class="likes-feet-tags">
+          <div class="likes-feet fat-font">
+              <img src="assets/smm2_heart-cropped.svg" alt="Likes">
+              <%= level.likes %>
+              <img class="p-l" src="assets/smm2_feet-cropped.svg" alt="Footprints">
+              <%= level.footprints %>
+          </div>
+          <div class="tags">
+              <img class="tag-svg" src="assets/smm2_tag-cropped.svg" alt="Tag1">
+              <%= level.tag1 %>
+              <% if (level.tag2 != null) { %>
+                <img class="tag-svg p-l" src="assets/smm2_tag-cropped.svg" alt="Tag2">
+                <%= level.tag2 %>
+              <% } %>
+          </div>
+        </div>
+      </section>
+      <section id="expandable" class="hide">
+        <div class="expanded-top-grid">
+          <div class="description etg-item"><%= level.description %> </div>
+          <div class="clear-check-time etg-item">
+            <p class="etg-item-title">Clear check time</p>
+            <%= level.cc_time %>
+          </div>
+          <div class="attempts etg-item">
+            <p class="etg-item-title">Attempts</p>
+            <p class="fat-font">0/<%= level.attempts %></p>
+          </div>
+          <div class="level-code etg-item">
+            <p class="etg-item-title">Course ID</p>
+            <%= level.level_code %>
+          </div>
+        </div>
+        <div class="expanded-bottom">
+          <div class="eb-btn" id="mark-as-completed">Mark As Completed</div>
+          <div class="eb-btn" id="copy-to-clipboard">Copy To Clipboard</div>
+        </div>
+      </section>
     </div>
   <% } %>
 

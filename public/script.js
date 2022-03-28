@@ -7,21 +7,28 @@ const tabsArr = {
 }
 
 const classLevelArr = document.querySelectorAll('.level');
-
 let currentExpandedLevel;
 
 for (let tab in tabsArr) {
+  let tabUrl = `./${tab}`;
   tabsArr[tab].addEventListener('click', () => {
-    window.location.replace(`./${tab}`)
+    window.location.replace(tabUrl);
   })
-  if (`/${tab}` !== window.location.pathname) continue;
-  tabsArr[tab].classList.add('active-tab')
+  if (tabUrl !== window.location.pathname) continue;
+  tabsArr[tab].classList.add('active-tab');
 }
 
-// tabsArr.login.addEventListener('click', () => {
-//   window.location.replace('./login')
-// })
+for (let level of classLevelArr) {
+  level.addEventListener('click', () => {
+    expandLevel(level, currentExpandedLevel);
+  })
+}
 
-// tabsArr.signup.addEventListener('click', () => {
-//   window.location.replace('./signup')
-// })
+function expandLevel(newLevel, oldLevel = null) {
+  if (newLevel === oldLevel) return;
+  let childNode = newLevel.querySelector('#expandable');
+  childNode.classList.add('expand')
+  if (oldLevel)
+    oldLevel.querySelector('#expandable').classList.remove('expand');
+  currentExpandedLevel = newLevel;
+}

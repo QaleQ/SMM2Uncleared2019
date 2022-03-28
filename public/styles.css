@@ -9,11 +9,31 @@
   user-select: none;
 }
 
+img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+@font-face {
+  font-family: 'Super Mario Maker';
+  src: url("assets/super-mario-maker.ttf");
+}
+
+.fat-font {
+  font-family: 'Super Mario Maker', sans-serif;
+}
+
+.p-l {
+  margin-left: 0.5em; 
+}
+
+
 :root {
   --main-dark-color: rgb(92, 28, 27);;
   --main-dark-color-svg: invert(13%) sepia(97%) saturate(770%) hue-rotate(325deg) brightness(96%) contrast(99%);
   --main-light-color: rgb(254, 204, 0);
-  --main-light-color-svg: invert(67%) sepia(93%) saturate(497%) hue-rotate(0deg) brightness(104%) contrast(103%)
+  --main-light-color-svg: invert(67%) sepia(93%) saturate(497%) hue-rotate(0deg) brightness(104%) contrast(103%);
+  --info-box-color: rgb(254, 243, 209);
 }
 
 body {
@@ -22,16 +42,17 @@ body {
   height: 100vh;
   width: 100vw;
   background-color: rgb(1, 13, 31);
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
 
+
 #background-layer {
   background-color: rgb(206, 167, 11);
   width: clamp(320px, 100%, 90em);
-  flex-shrink:0;
+  flex-shrink: 0;
   height: 90vh;
 
   box-sizing: border-box;
@@ -39,7 +60,7 @@ body {
 
   color: var(--main-dark-color);
 
-  display:flex;
+  display: flex;
   flex-direction: column;
 }
 
@@ -93,10 +114,10 @@ body {
 }
 
 #log-out-form {
-  height:100%;
+  height: 100%;
 }
 #log-out-btn {
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -124,117 +145,144 @@ body {
   background-repeat: no-repeat;
   height: 5em;
   width: calc(clamp(320px, 100%, 90em) - 0.82em);
-  pointer-events:none
+  pointer-events: none
 }
 
 
 #levels-list {
-  display:flex;
-  flex-direction: column;
-  align-items: center;
   width: min(100%, 60em);
 }
 
 .level,
 .form {
-  height: 13em;
   width: min(95%, 60em);
   background: rgb(253, 252, 237);
   border-radius: 0.66em;
   padding: 0.1em 0.6em;
-  margin: 0.4em 0;
+  margin-block: 0.4em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
 }
 .form-big {
   height: 20em;
 }
 
-.level {
-  display: grid;
-  grid-template-columns: minmax(138px, 1fr) 3fr;
-  grid-template-rows: 1fr 3fr;
-}
-
-.level-top {
+#level-top {
   font-size: 2em;
-  grid-column: 1 / span 2;
   display: flex;
   align-items: center;
+  gap: 0.5em;
+  flex-basis: 0.5em;
 }
-.style-image {
-  width: 3em;
-  height: 1.5em;
-  margin-right: 0.5em;
+  .style-image {
+    height: 100%;
+    width: 3em;
+  }
+
+#thumb-likes-feet {
+  display: flex;
+  height: 8em;
+}
+  .thumb-and-date {
+    width: max(25%, 120px);
+  }
+    .thumbnail {
+      height: 6.4em;
+      display: grid;
+      place-items: center;
+      background-color: var(--info-box-color);
+    }
+    .upload-date {
+      font-size: 1.3em;
+      color: rgb(253, 252, 237);
+      background: rgb(179, 172, 155);
+      padding-inline: 0.2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 20%;
+    }
+  .likes-feet-tags {
+    display: flex;
+    flex-direction: column;
+    margin-inline: 0.8em;
+    margin-block: 0.4em;
+    gap: 0.7em;
+  }
+    .likes-feet {
+      display: flex;
+      font-size: 2em;
+      height: 1.1em;
+      gap: 0.3em;
+    }
+    .tags {
+      font-size: 1.5em;
+      display: flex;
+      align-items: center;
+      height: 1.8em;
+      gap: 0.4em;
+    }
+      .tag-svg {
+        height: 45%;
+      }
+
+.expanded-top-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: minmax(min-content, 5em) 5em;
+  gap: 0.3em;
+  width: max(70%, 40em);
 }
 
-.bottom-left {
-  width: max(100%, 120px);
+  .etg-item {
+    white-space: nowrap;
+    background-color: var(--info-box-color);
+    display: grid;
+    text-align: center;
+    font-size: 1.5em;
+  }
+
+    .etg-item-title {
+      font-size: 0.4em;
+      color: grey;
+    }
+    .description {
+      padding-inline: 2em;
+      padding-block: 0.5em;
+      white-space: normal;
+      text-align: center;
+      grid-area: 1 / span 3;
+      justify-content: center;
+      font-size: 1.3em;
+    }
+
+
+
+.expanded-bottom {
+  margin-block: 0.3em;
+  display: flex;
+  align-content: center;
+  justify-content: end;
+  gap: 0.5em;
 }
 
-.thumbnail {
-  display:flex;
+
+.eb-btn {
+  font-size: 1.6em;
+  display: flex;
   justify-content: center;
   align-items: center;
-  height: 7.8em;
-  background-color: rgb(254, 243, 209);
-}
-.upload-date {
-  color: rgb(253, 252, 237);
-  background: rgb(179, 172, 155);
-  font-size: 1.3em;
-  padding: 0 0.2em;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 1em;
+  border-radius: 0.3em;
+  background-color: var(--main-light-color);
+  width: 14em;
+  height: 3.3em;
 }
 
-
-.bottom-right {
-  grid-column: 2;
-  display: flex;
-  flex-direction: column;
-}
-
-.likes-svg,
-.feet-svg {
-  height: 85%;
-  margin: 0.5em 0.5em;
-}
-.likes-feet {
-  display: flex;
-  align-items: center;
-
-  font-size: 2.5em;
-
-  height: 1em;
-  margin-top: 0.3em;
-  margin-bottom: 0.2em;
-}
-
-
-
-.tags {
-  font-size: 1.5em;
-  display:flex;
-  height: 1.75em;
-  line-height: 0.8;
-}
-
-.tag {
-  display:flex;
-  align-items: center;
-}
-
-.tag-svg {
-  height: 40%;
-  margin-left: 1em;
-  margin-right: 0.2em;
-}
 
 .form-big,
 .form {
   box-sizing: border-box;
-  padding-bottom: 0.5em;
   display: flex;
   flex-direction: column;
   margin-top: 15%;
@@ -271,8 +319,8 @@ body {
 
 
 .form-big {
-  background:rgb(253, 252, 237);
-  display:grid;
+  background: rgb(253, 252, 237);
+  display: grid;
   grid-auto-rows: min-content;
   padding: 0.2em 0.5em;
   gap: 0.7em;
@@ -308,4 +356,15 @@ body {
   justify-self: end;
   color: var(--main-dark-color);
   background-color: var(--main-light-color);
+}
+
+
+#expandable {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.1s linear;
+}
+
+.expand {
+  max-height: 20em !important;
 }
