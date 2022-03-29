@@ -55,7 +55,7 @@ async function main() {
   });
 
   app.get('/levels', (req, res) => {
-    queryData = req.session.userData ? req.session.userData[0] : queryData;
+    queryData = req.session.userData ? req.session.userData : queryData;
     res.render('levels', { queryData, req, styleImages });
   })
 
@@ -155,9 +155,12 @@ async function main() {
       if (!validSortOrders.includes(sort_order)) throw new Error ('Invalid sort order')
       queryArr.push(`ORDER BY ${connection.escapeId(first_sort)} ${sort_order}\nLIMIT 10;`)
 
-      req.session.userData = await connection.query(queryArr.join('\n'), req.body)
-      if (!req.session.userData[0].length) throw new Error ('No results!')
-      res.render('levels', { queryData: req.session.userData[0], req, styleImages });
+      let [qData, []] = await connection.query(queryArr.join('\n'), req.body)
+      console.log(qData)
+      if (!qData.length) throw new Error ('No results!')
+      req.session.userData = qData;
+      // console.log(req.session.userData);
+      res.render('levels', { queryData: req.session.userData, req, styleImages });
     } catch (err) {
       res.render('filter', {err})
     }
