@@ -2,17 +2,16 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 const express = require('express');
-const mysql = require('mysql2/promise');
 const app = express();
 const session = require('express-session');
 
 //routes
-const filterRoute = require('./routes/filter.js')
-const levelsRoute = require('./routes/levels.js')
-const loginRoute = require('./routes/login.js')
-const logoutRoute = require('./routes/logout.js')
-const overviewRoute = require('./routes/overview.js')
-const signupRoute = require('./routes/signup.js')
+const filterRoute = require('./routes/filter')
+const levelsRoute = require('./routes/levels')
+const loginRoute = require('./routes/login')
+const logoutRoute = require('./routes/logout')
+const overviewRoute = require('./routes/overview')
+const signupRoute = require('./routes/signup')
 
 app.set('view engine', 'ejs');
 
@@ -21,7 +20,6 @@ app.use(express.urlencoded({extended: true}));
 app.use(session({secret: process.env.SECRET}));
 
 app.listen(3000);
-
 
 app.use('/filter', filterRoute);
 app.use('/levels', levelsRoute);

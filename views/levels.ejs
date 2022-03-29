@@ -48,7 +48,10 @@
           </div>
         </div>
         <div class="expanded-bottom">
-          <div class="eb-btn" id="mark-as-completed">Mark As Completed</div>
+          <form action="/levels/delete/<%= level.id %>" method="POST">
+            <button class="eb-btn">Mark As Completed</button>
+          </form>
+          <!-- <div class="eb-btn eb-btn-disabled" id="mark-as-completed"></div> -->
           <div class="eb-btn" id="copy-to-clipboard">Copy To Clipboard</div>
         </div>
       </section>

@@ -17,7 +17,7 @@
     <section id="top-content">
       <p id="top-text">
         <span>[B] [Fa] [Fl] Uncleared Levels (2019)</span>
-        <span>[S] [X]</span>
+        <span><%= req.session?.username %> [X]</span>
       </p>
       <div id="tabs-container">
         <div class="tab tab-big" id="overview">Overview</div>
@@ -32,7 +32,7 @@
           </form>
         </div>
         <div class="tab tab-small" id="username">
-          <%= req.session.username %> 
+          My clears
         </div>
         <% } else { %>
         <div class="tab tab-small" id="login">

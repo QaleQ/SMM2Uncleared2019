@@ -2,10 +2,12 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 
-router.get('/', (req, res) => {
+
+router.route('/')
+.get((req, res) => {
   res.render('signup');
-});
-router.post('/', async (req, res) => {
+})
+.post(async (req, res) => {
   try {
     const { username, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 12);

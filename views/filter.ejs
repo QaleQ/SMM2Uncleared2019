@@ -2,7 +2,7 @@
 <% if (typeof err != 'undefined') { %>
   <span class="err">Something went wrong: <%= err.message %> </span>
 <% } %>
-<form action="/levels" class="form-big" method="POST">
+<form action="/filter" class="form-big" method="POST">
   <p class="filter-paragraph">
     <label for="match_field">Match:</label>
     <select name="match_field" id="match_field">

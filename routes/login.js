@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const connection = require('../utils/dbConnection');
 
-router.get('/', (req, res) => {
+
+router.route('/')
+.get((req, res) => {
   res.render('login');
-});
-
-router.post('/', async (req, res) => {
+})
+.post(async (req, res) => {
   try {
     const { username, password } = req.body;
     let [[queryResult],[]] = await connection.query('SELECT * FROM users WHERE username = :username', req.body);
