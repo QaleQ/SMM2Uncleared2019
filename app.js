@@ -17,7 +17,11 @@ app.set('view engine', 'ejs');
 
 app.use(express.static(`${__dirname}/public`));
 app.use(express.urlencoded({extended: true}));
-app.use(session({secret: process.env.SECRET}));
+app.use(session({
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: true
+}));
 
 app.listen(3000);
 
