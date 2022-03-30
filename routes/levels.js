@@ -1,21 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const styleImages = require('../utils/styleImages');
-const asyncGetData = require('../utils/asyncGetData');
-const connection = require('../utils/dbConnection');
+const dbConnection = require('../utils/dbConnection');
+const { userCaches, serverCache } = require('../config/caches');
 
 
-router.get('/', async (req, res) => {
-  queryData = req.session.userData ? req.session.userData : await asyncGetData();
-  res.render('levels', { queryData, req, styleImages });
+router.get('/', ensureCache, async (req, res) => {
+  let cache = userCaches[req.sessionID] ? userCaches[req.sessionID] : serverCache
+  res.render('levels', { queryData: cache.levels, req, styleImages });
 })
 
 router.post('/delete/:id', async (req, res) => {
   try {
     // if (!req.session.username) throw new Error('You need to be logged in to do this');
     if (!/^[0-9]+$/.test(req.params.id)) throw new Error('invalid level id')
-    let query = `DELETE FROM levels WHERE id = :id`
-    await connection.query(query, req.params);
+    let sql = `DELETE FROM levels WHERE id = :id`
+    await dbConnection.query(sql, req.params);
 
     res.send(`${req.params.id} deleted!`)
   } catch (err) {
@@ -23,5 +23,18 @@ router.post('/delete/:id', async (req, res) => {
     // res.render('levels', { queryData: req.session.userData, req, styleImages, err});
   }
 })
+
+async function ensureCache (req, res, next) {
+  if (serverCache.levels.length || 
+    userCaches[req.sessionID]?.levels.length) return next();
+  try {
+    await serverCache.addLevels();
+    return next();
+  } catch {
+    // unsure what to do if something goes wrong here ??
+    // like, is it possible to pass the error message on to the next middleware?
+    // or to halt the entire process and just render something from here?
+  }
+}
 
 module.exports = router;
