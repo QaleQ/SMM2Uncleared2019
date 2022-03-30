@@ -17,7 +17,7 @@
     <section id="top-content">
       <p id="top-text">
         <span>[B] [Fa] [Fl] Uncleared Levels (2019)</span>
-        <% if (req && req.session.username) { %> 
+        <% if (typeof req !== 'undefined' && req.session.username) { %> 
           <span><%= req.session?.username %> [X]</span>
         <% } else { %>
          <span>[X]</span>

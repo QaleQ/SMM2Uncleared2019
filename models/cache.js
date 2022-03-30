@@ -1,4 +1,4 @@
-const dbConnection = require('../utils/dbConnection');
+const queryDB = require('../utils/queryDb');
 const Level = require("./level");
 
 class Cache {
@@ -6,18 +6,16 @@ class Cache {
     this.hash = hash;
     this.levels = [];
   }
-  resetLevels() {
-    this.levels = [];
-  }
   updateHash() {
     this.levels = [];
     this.hash += 1;
   }
-  async addLevels(array = null) {
+  async setLevels(array = null) {
+    this.levels = [];
     if (array === null) {
       let sql = `SELECT * FROM levels LIMIT 10;`;
-      let [result, _] = await dbConnection.query(sql);
-      this.addLevels(result)
+      let sqlResult = await queryDB(sql);
+      this.setLevels(sqlResult)
     } else {
       array.forEach(level => {
         this.levels.push(new Level(level));
