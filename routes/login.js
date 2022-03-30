@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const connection = require('../utils/dbConnection');
+const dbConnection = require('../utils/dbConnection');
 
 
 router.route('/')
@@ -11,7 +11,7 @@ router.route('/')
 .post(async (req, res) => {
   try {
     const { username, password } = req.body;
-    let [[queryResult],[]] = await connection.query('SELECT * FROM users WHERE username = :username', req.body);
+    let [[queryResult],[]] = await dbConnection.query('SELECT * FROM users WHERE username = :username', req.body);
     if (!queryResult.username) throw new Error(`Username ${username} not found`)
     let storedPassword = queryResult.password;
     let loggedIn = await bcrypt.compare(password, storedPassword);
