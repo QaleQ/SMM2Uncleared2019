@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const queryBase = require('../utils/queryBase');
-const connection = require('../utils/dbConnection');
-const styleImages = require('../utils/styleImages')
+const dbConnection = require('../utils/dbConnection');
+const styleImages = require('../utils/styleImages');
+const { userCaches, serverCache } = require('../config/caches');
+const Cache = require('../models/cache');
 
 router.route('/')
 .get((req, res) => {
@@ -10,7 +11,7 @@ router.route('/')
 })
 .post(async (req, res) => {
   try {
-    let queryArr = [...queryBase];
+    let sql = [`SELECT * FROM levels WHERE NOT ISNULL(id)`]
     let {
       match_field,
       match_option,
@@ -29,36 +30,34 @@ router.route('/')
       let string = `%${match_value}%`;
       if (match_option == 'starts_with') string = string.slice(1)
       else if (match_option == 'ends_with') string = string.slice(0, -1)
-
       req.body.match_value = string;
-
-      queryArr.push(`AND ${connection.escapeId(match_field)} LIKE :match_value`);
+      sql.push(`AND ${dbConnection.escapeId(match_field)} LIKE :match_value`);
     }
-
     if (upload_date_start != '2019-06-27' || upload_date_end != '2019-12-31')
-      queryArr.push(`AND (upload_datetime BETWEEN :upload_date_start AND :upload_date_end)`);
-
-    if (style) queryArr.push(`AND style=:style`);
-    if (theme) queryArr.push(`AND theme=:theme`);
+      sql.push(`AND (upload_datetime BETWEEN :upload_date_start AND :upload_date_end)`);
+    if (style) sql.push(`AND style=:style`);
+    if (theme) sql.push(`AND theme=:theme`);
     if (tag1 || tag2) {
       if (tag1 && tag2 && tag1 !== tag2) {
-        queryArr.push(`AND (tag1=:tag1 OR tag1=:tag2)`);
-        queryArr.push(`AND (tag2=:tag1 OR tag2=:tag2)`);
+        sql.push(`AND (tag1=:tag1 OR tag1=:tag2)`);
+        sql.push(`AND (tag2=:tag1 OR tag2=:tag2)`);
       }
       else {
         let tag = tag1 ? tag1 : tag2;
         req.body.tag = tag;
-        queryArr.push(`AND (tag1=:tag OR tag2=:tag)`)
+        sql.push(`AND (tag1=:tag OR tag2=:tag)`)
       }
     }
-
     let validSortOrders = ['ASC', 'DESC'];
     if (!validSortOrders.includes(sort_order)) throw new Error ('Invalid sort order')
-    queryArr.push(`ORDER BY ${connection.escapeId(first_sort)} ${sort_order}\nLIMIT 10;`)
-    let [qData, _] = await connection.query(queryArr.join('\n'), req.body)
-    if (!qData.length) throw new Error ('No results!')
-    req.session.userData = qData;
-    res.render('levels', { queryData: req.session.userData, req, styleImages });
+    sql.push(`ORDER BY ${dbConnection.escapeId(first_sort)} ${sort_order} LIMIT 10;`)
+    let [sqlResult, _] = await dbConnection.query(sql.join('\n'), req.body)
+    if (!sqlResult.length) throw new Error ('No results!')
+
+    if (!userCaches[req.sessionID]) userCaches[req.sessionID] = new Cache(serverCache.hash) ;
+    userCaches[req.sessionID].resetLevels();
+    userCaches[req.sessionID].addLevels(sqlResult);
+    res.render('levels', { queryData: userCaches[req.sessionID].levels, req, styleImages });
   } catch (err) {
     res.render('filter', {err})
   }
