@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const login = require('../utils/login');
 const queryDB = require('../utils/queryDb');
+
 
 router.route('/')
 .get((req, res) => {
@@ -15,9 +17,14 @@ router.route('/')
       username,
       password: hashedPassword,
     };
-    let sql = `INSERT INTO users SET ?;`;
-    let sqlResult = await queryDB(sql, [userData])
-    req.session.username = username;
+    
+    let sql = `INSERT INTO users SET ?`;
+    await queryDB(sql, [userData]);
+
+    let loginResult = await login(username, password);
+    req.session.userID = loginResult.id;
+    req.session.username = loginResult.username;
+
     res.redirect('/levels')
   } catch (err) {
     res.render('signup', { err });
