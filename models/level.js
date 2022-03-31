@@ -14,8 +14,7 @@ class Level {
     this.theme = levelObject.theme;
     this.tag1 = levelObject.tag1;
     this.tag2 = levelObject.tag2;
-    this.cleared_at;
-    this.cleared_by;
+    this.cleared_at = null;
 
     
     this.tag2_display = this.tag1 !== this.tag2;

@@ -1,13 +1,28 @@
 const express = require('express');
-const queryDB = require('../utils/queryDb');
+const { userCaches } = require('../config/caches');
 const router = express.Router();
+const styleImages = require('../utils/styleImages');
 
-router.get('/', (req, res) => {
-  if (!req.session.userID) res.redirect('/');
-  // check if there are levels in cache
-    // fetch if not (but only once per cache hash, might not have cleared any levels)
-  
-  res.render('user', { req });
+router.get('/', async (req, res) => {
+  if (!req.session.userID) return res.redirect('/');
+  await userCaches[req.sessionID].fetchCompleted(req.session.userID);
+  let levelCache = Object.values(userCaches[req.sessionID].completedLevels);
+  res.render('user', { levelCache, req, styleImages });
 });
+
+router.post('/uncompleted/:id', async (req, res) => {
+  try {
+    let { userID } = req.session;
+    let { id } = req.params;
+    if (!userID) throw new Error('You need to be logged in to do this');
+    if (!/^[A-Z0-9]{9}$/.test(id)) throw new Error('Invalid level id')
+    await userCaches[req.sessionID].uncompleteLevel(id)
+    res.redirect('/user');
+  } catch (err) {
+    // put toast here
+    res.send(err.message)
+    // res.render('levels', { levels: req.session.userData, req, styleImages, err});
+  }
+})
 
 module.exports = router;

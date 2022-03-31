@@ -5,7 +5,7 @@ const { userCaches, serverCache } = require('../config/caches');
 
 
 router.get('/', async (req, res) => {
-  let { levelCache } = userCaches[req.sessionID];
+  let levelCache  = Object.values(userCaches[req.sessionID].levelCache);
   res.render('levels', { levelCache, req, styleImages });
 })
 

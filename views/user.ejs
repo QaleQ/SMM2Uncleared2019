@@ -1,6 +1,60 @@
 <%- include('partials/head') %>
 
-USER PAGE!!
+  <% for (let i = levelCache.length - 1; i >= 0; i--) { %>
+    <div class="level">
+      <section id="level-top">
+        <img class="style-image" src="<%= styleImages[levelCache[i].style] %>" alt="levelCache[i].style">
+        <%= levelCache[i].name %>
+      </section>
+      <section id="thumb-likes-feet">
+        <div class="thumb-and-date">
+          <div class="thumbnail">[THUMBNAIL]</div>
+          <div class="upload-date">
+            <span><%= levelCache[i].date_day %></span>
+            <span><%= levelCache[i].date_time %></span>
+          </div>
+        </div>
+        <div class="likes-feet-tags">
+          <div class="likes-feet fat-font">
+              <img src="assets/smm2_heart-cropped.svg" alt="Likes">
+              <%= levelCache[i].likes %>
+              <img class="p-l" src="assets/smm2_feet-cropped.svg" alt="Footprints">
+              <%= levelCache[i].footprints %>
+          </div>
+          <div class="tags">
+              <img class="tag-svg" src="assets/smm2_tag-cropped.svg" alt="Tag1">
+              <%= levelCache[i].tag1 %>
+              <% if (levelCache[i].tag2_display) { %>
+                <img class="tag-svg p-l" src="assets/smm2_tag-cropped.svg" alt="Tag2">
+                <%= levelCache[i].tag2 %>
+              <% } %>
+          </div>
+        </div>
+      </section>
+      <section id="expandable" class="hide">
+        <div class="expanded-top-grid">
+          <div class="description etg-item"><%= levelCache[i].description %> </div>
+          <div class="clear-check-time etg-item">
+            <p class="etg-item-title">Clear check time</p>
+            <%= levelCache[i].upload_time_string %>
+          </div>
+          <div class="attempts etg-item">
+            <p class="etg-item-title">Attempts</p>
+            <p class="fat-font">0/<%= levelCache[i].attempts %></p>
+          </div>
+          <div class="level-code etg-item">
+            <p class="etg-item-title">Course ID</p>
+            <%= levelCache[i].id_string %>
+          </div>
+        </div>
+        <div class="expanded-bottom">
+          <form action="/user/uncompleted/<%= levelCache[i].id %>" method="POST">
+            <button class="eb-btn">Mark As Uncleared</button>
+          </form>
+          <div class="eb-btn" id="copy-to-clipboard">Copy To Clipboard</div>
+        </div>
+      </section>
+    </div>
+  <% } %>
 
-<%- include('partials/foot') %>
-
+<%- include('partials/foot')  %>
