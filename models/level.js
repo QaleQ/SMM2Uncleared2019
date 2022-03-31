@@ -19,28 +19,28 @@ class Level {
 
     
     this.tag2_display = this.tag1 !== this.tag2;
-    this.id_string = Level.formatCode(this.id);
-    this.upload_time_string = Level.msToTime(levelObject.upload_time);
+    this.id_string = formatCode(this.id);
+    this.upload_time_string = msToTime(levelObject.upload_time);
     this.date_day = levelObject.date.slice(0, 10);
     this.date_time = levelObject.date.slice(11, 16);
   }
-  static formatCode(id) {
-    let string = [
-      id.slice(0, 3),
-      id.slice(3, 6),
-      id.slice(6, 9)
-    ]
-    return string.join('-');
-  }
-  static msToTime(rawTime) {
-    let minutes = Math.floor(rawTime / 60000);
-    rawTime -= minutes * 60000;
-    let seconds = Math.floor(rawTime / 1000);
-    let ms = rawTime % 1000;
-    return `${padDigits(2, minutes)}:${padDigits(2, seconds)}.${padDigits(3, ms)}`;
-  }
 }
 
+function formatCode(id) {
+  let string = [
+    id.slice(0, 3),
+    id.slice(3, 6),
+    id.slice(6, 9)
+  ]
+  return string.join('-');
+}
+function msToTime(rawTime) {
+  let minutes = Math.floor(rawTime / 60000);
+  rawTime -= minutes * 60000;
+  let seconds = Math.floor(rawTime / 1000);
+  let ms = rawTime % 1000;
+  return `${padDigits(2, minutes)}:${padDigits(2, seconds)}.${padDigits(3, ms)}`;
+}
 function padDigits(finalLength, value) {
   let str = value.toString();
   for (let i = str.length; i < finalLength; i++) {

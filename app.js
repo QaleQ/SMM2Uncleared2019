@@ -4,14 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express');
 const app = express();
 const session = require('express-session');
-
-//routes
-const filterRoute = require('./routes/filter')
-const levelsRoute = require('./routes/levels')
-const loginRoute = require('./routes/login')
-const logoutRoute = require('./routes/logout')
-const overviewRoute = require('./routes/overview')
-const signupRoute = require('./routes/signup')
+const ensureCache = require('./utils/ensureCache');
 
 app.set('view engine', 'ejs');
 
@@ -22,15 +15,17 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
+app.use(ensureCache);
 
 app.listen(3000);
 
-app.use('/filter', filterRoute);
-app.use('/levels', levelsRoute);
-app.use('/overview', overviewRoute);
-app.use('/login', loginRoute);
-app.use('/logout', logoutRoute);
-app.use('/signup', signupRoute);
+app.use('/filter', require('./routes/filter'));
+app.use('/levels', require('./routes/levels'));
+app.use('/overview', require('./routes/overview'));
+app.use('/login', require('./routes/login'));
+app.use('/logout', require('./routes/logout'));
+app.use('/signup', require('./routes/signup'));
+app.use('/user', require('./routes/user'));
 
 app.get('/', (req, res) => {
   res.redirect('/levels')

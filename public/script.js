@@ -5,7 +5,7 @@ const tabsArr = {
   "login": document.querySelector('#login'),
   "signup": document.querySelector('#signup'),
   "logout": document.querySelector('#logout'),
-  "username": document.querySelector('#username')
+  "user": document.querySelector('#user')
 }
 
 const classLevelArr = document.querySelectorAll('.level');
