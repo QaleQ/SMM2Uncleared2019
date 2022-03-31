@@ -2,39 +2,36 @@ const express = require('express');
 const router = express.Router();
 const styleImages = require('../utils/styleImages');
 const { userCaches, serverCache } = require('../config/caches');
+const queryDB = require('../utils/queryDb');
 
 
-router.get('/', ensureCache, async (req, res) => {
-  let levels = userCaches[req.sessionID] ? userCaches[req.sessionID].levels : serverCache.levels
+router.get('/', async (req, res) => {
+  let { levels } = userCaches[req.sessionID];
   res.render('levels', { levels, req, styleImages });
 })
 
 router.post('/completed/:id', async (req, res) => {
   try {
-    if (!req.session.userID) throw new Error('You need to be logged in to do this');
-    if (!/^[0-9]+$/.test(req.params.id)) throw new Error('invalid level id')
-
-    // let sql = `DELETE FROM levels WHERE id = :id`
-    // await dbConnection.query(sql, req.params);
-
-    res.send(`${req.params.id} deleted!`)
+    let { userID } = req.session;
+    let { id } = req.params;
+    if (!userID) throw new Error('You need to be logged in to do this');
+    if (!/^[A-Z0-9]{9}$/.test(id)) throw new Error('Invalid level id')
+    let sqlData = {
+      cleared_by: userID,
+      id
+    }
+    let sql = `UPDATE levels SET cleared_by=:cleared_by, cleared_at=NOW() WHERE id=:id;`;
+    await queryDB(sql, sqlData);
+    userCaches[req.sessionID].removeLevel(id);
+    serverCache.levels = []; // can probably just scan servercache for the level id and remove it from there too ??
+    res.redirect('/');
   } catch (err) {
+    // put toast here
     res.send(err.message)
     // res.render('levels', { levels: req.session.userData, req, styleImages, err});
   }
 })
 
-async function ensureCache (req, res, next) {
-  if (serverCache.levels.length || 
-    userCaches[req.sessionID]?.levels.length) return next();
-  try {
-    await serverCache.setLevels();
-    return next();
-  } catch {
-    // unsure what to do if something goes wrong here ??
-    // like, is it possible to pass the error message on to the next middleware?
-    // or to halt the entire process and just render something from here?
-  }
-}
+
 
 module.exports = router;
