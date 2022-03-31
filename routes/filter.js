@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const dbConnection = require('../config/dbConnection');
 const { userCaches, serverCache } = require('../config/caches');
 const queryDB = require('../utils/queryDb');
 const Cache = require('../models/cache');

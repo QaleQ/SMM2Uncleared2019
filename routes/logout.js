@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.post('/', (req, res) => {
   req.session.destroy();
-  res.redirect('/levels');
+  res.redirect('/');
 });
 
 module.exports = router;
