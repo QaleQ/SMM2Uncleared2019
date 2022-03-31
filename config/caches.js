@@ -1,7 +1,6 @@
-const Cache = require('../models/cache');
+const ServerCache = require('../models/ServerCache');
 
-const serverCache = new Cache(Math.floor(Math.random() * 1000000000));
+let serverCache = new ServerCache();
 const userCaches = {}
 
 module.exports = { serverCache, userCaches }
-
