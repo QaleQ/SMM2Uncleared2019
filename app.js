@@ -35,3 +35,7 @@ app.use('/signup', signupRoute);
 app.get('/', (req, res) => {
   res.redirect('/levels')
 });
+
+app.get('/*', (req, res) => {
+  res.redirect('/');
+})
