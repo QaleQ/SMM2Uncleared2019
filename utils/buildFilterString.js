@@ -2,7 +2,7 @@ const dbConnection = require("../config/dbConnection");
 
 // not happy about this mutating...
 module.exports = function buildFilterString(data) {
-  let sql = [`SELECT * FROM levels WHERE NOT ISNULL(id)`]
+  let sql = [`SELECT * FROM levels WHERE ISNULL(cleared_by)`]
   let {
     match_field,
     match_option,
@@ -25,7 +25,7 @@ module.exports = function buildFilterString(data) {
     sql.push(`AND ${dbConnection.escapeId(match_field)} LIKE :match_value`);
   }
   if (upload_date_start != '2019-06-27' || upload_date_end != '2019-12-31')
-    sql.push(`AND (upload_datetime BETWEEN :upload_date_start AND :upload_date_end)`);
+    sql.push(`AND (date_datetime BETWEEN :upload_date_start AND :upload_date_end)`);
   if (style) sql.push(`AND style=:style`);
   if (theme) sql.push(`AND theme=:theme`);
   if (tag1 || tag2) {

@@ -9,10 +9,11 @@ router.get('/', ensureCache, async (req, res) => {
   res.render('levels', { levels, req, styleImages });
 })
 
-router.post('/delete/:id', async (req, res) => {
+router.post('/completed/:id', async (req, res) => {
   try {
-    // if (!req.session.username) throw new Error('You need to be logged in to do this');
+    if (!req.session.userID) throw new Error('You need to be logged in to do this');
     if (!/^[0-9]+$/.test(req.params.id)) throw new Error('invalid level id')
+
     // let sql = `DELETE FROM levels WHERE id = :id`
     // await dbConnection.query(sql, req.params);
 

@@ -1,32 +1,52 @@
 class Level {
   constructor(levelObject) {
-    this.id = levelObject.id;
-    this.level_name = levelObject.level_name;
+    this.name = levelObject.name;
     this.description = levelObject.description;
-    this.level_code = levelObject.level_code;
+    this.id = levelObject.id;
     this.attempts = levelObject.attempts;
-    this.upload_date_day = Level.datetimeToDate(levelObject.upload_datetime);
-    this.upload_date_time = Level.datetimeToTime(levelObject.upload_datetime);
-    this.clear_check_time = Level.clearCheckToTime(levelObject.clear_check_time);
+    this.footprints = levelObject.foorprints;
+    this.date = levelObject.date
+    this.upload_time = levelObject.upload_time;
     this.likes = levelObject.likes;
     this.boos = levelObject.boos;
     this.comments = levelObject.comments;
     this.style = levelObject.style;
     this.theme = levelObject.theme;
     this.tag1 = levelObject.tag1;
-    this.tag2 = levelObject.tag2 === levelObject.tag1 ? null : levelObject.tag2;
+    this.tag2 = levelObject.tag2;
     this.cleared_at;
     this.cleared_by;
+
+    
+    this.tag2_display = this.tag1 !== this.tag2;
+    this.id_string = Level.formatCode(this.id);
+    this.upload_time_string = Level.msToTime(levelObject.upload_time);
+    this.date_day = levelObject.date.slice(0, 10);
+    this.date_time = levelObject.date.slice(11, 16);
   }
-  static datetimeToDate(datetime) {
-    return 'placeholder'
+  static formatCode(id) {
+    let string = [
+      id.slice(0, 3),
+      id.slice(3, 6),
+      id.slice(6, 9)
+    ]
+    return string.join('-');
   }
-  static datetimeToTime(datetime) {
-    return 'placeholder';
+  static msToTime(rawTime) {
+    let minutes = Math.floor(rawTime / 60000);
+    rawTime -= minutes * 60000;
+    let seconds = Math.floor(rawTime / 1000);
+    let ms = rawTime % 1000;
+    return `${padDigits(2, minutes)}:${padDigits(2, seconds)}.${padDigits(3, ms)}`;
   }
-  static clearCheckToTime(rawTime) {
-    return 'placeholder';
+}
+
+function padDigits(finalLength, value) {
+  let str = value.toString();
+  for (let i = str.length; i < finalLength; i++) {
+    str = "0" + str;
   }
+  return str;
 }
 
 module.exports = Level;

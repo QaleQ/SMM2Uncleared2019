@@ -8,6 +8,8 @@ let connection = mysql.createConnection({
   password: process.env.MYSQL_PASSWORD
 })
 
+let csvPath = `./2019uncleared.csv`;
+
 let sql = `CREATE DATABASE ${process.env.MYSQL_DB};`
 connection.query(sql);
 
@@ -17,8 +19,8 @@ connection.query(sql);
 sql = `CREATE TABLE users
 (
   id INT PRIMARY KEY AUTO_INCREMENT
-  ,username VARCHAR(255)
-  ,password VARCHAR(255)
+  ,username VARCHAR(255) UNIQUE NOT NULL
+  ,password VARCHAR(255) NOT NULL
 );`
 connection.query(sql);
 
@@ -38,13 +40,13 @@ sql = `CREATE TABLE levels
   ,theme VARCHAR(15) NOT NULL
   ,tag1 VARCHAR(20) NOT NULL
   ,tag2 VARCHAR(20)
+  ,date_datetime DATETIME
   ,cleared_at TIMESTAMP
   ,cleared_by INT
   ,FOREIGN KEY(cleared_by) REFERENCES users(id)
 );`
 connection.query(sql);
 
-let csvPath = `./2019uncleared.csv`;
 
 sql = `SET GLOBAL local_infile = true`;
 connection.query(sql);
@@ -55,7 +57,6 @@ sql = `LOAD DATA LOCAL INFILE ? INTO TABLE levels
   ESCAPED BY ''
   LINES TERMINATED BY '\n'
   IGNORE 1 LINES;`
-
 connection.query({
   sql, 
   values: [csvPath],
@@ -63,6 +64,9 @@ connection.query({
 });
 
 sql = `SET GLOBAL local_infile = true`;
+connection.query(sql);
+
+sql = `UPDATE levels SET date_datetime=STR_TO_DATE(date, '%m/%d/%Y %H:%i:%s')`
 connection.query(sql);
 
 connection.end();

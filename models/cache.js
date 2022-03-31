@@ -13,7 +13,7 @@ class Cache {
   async setLevels(array = null) {
     this.levels = [];
     if (array === null) {
-      let sql = `SELECT * FROM levels LIMIT 10;`;
+      let sql = `SELECT * FROM levels WHERE ISNULL(cleared_by) LIMIT 10;`;
       let sqlResult = await queryDB(sql);
       this.setLevels(sqlResult)
     } else {
