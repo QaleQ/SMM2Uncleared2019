@@ -1,23 +1,42 @@
 const express = require('express');
-const { userCaches } = require('../config/caches');
-const ensureCache = require('../utils/ensureCache');
+const serverCache = require('../config/caches');
 const router = express.Router();
+const ensureCache = require('../utils/ensureCache');
+const queryDB = require('../utils/queryDb');
 const styleImages = require('../utils/styleImages');
 
 router.get('/', ensureCache, async (req, res) => {
   if (!req.session.userID) return res.redirect('/');
-  await userCaches[req.sessionID].fetchCompleted(req.session.userID);
-  let levelCache = Object.values(userCaches[req.sessionID].completedLevels);
+
+  if (!req.session.fetchOnce) {
+    let sql = `SELECT * FROM levels WHERE cleared_by = :userID;`;
+    let { sqlResult } = await queryDB(sql, req.session);
+    sqlResult.map(level => {
+      req.session.clears[level.id] = level;
+    })
+    req.session.fetchOnce = true;
+  }
+  
+  let levelCache = Object.values(req.session.clears);
   res.render('user', { levelCache, req, styleImages });
 });
 
-router.post('/uncompleted/:id', async (req, res) => {
+router.post('/uncleared/:id', ensureCache, async (req, res) => {
   try {
     let { userID } = req.session;
     let { id } = req.params;
+
     if (!userID) throw new Error('You need to be logged in to do this');
-    if (!/^[A-Z0-9]{9}$/.test(id)) throw new Error('Invalid level id')
-    await userCaches[req.sessionID].uncompleteLevel(id)
+    if (!/^[0-9]+$/.test(id)) throw new Error('Invalid level id')
+    
+    let sql = `UPDATE levels SET cleared_by = NULL, cleared_at = NULL WHERE id = :id;`;
+    await queryDB(sql, req.params);
+
+    req.session.levelCache[id] = Object.assign({}, req.session.clears[id]);
+    delete req.session.clears[id];
+    serverCache.clearedLevels.delete(id);
+    serverCache.updateHash();
+
     res.redirect('/user');
   } catch (err) {
     // put toast here
