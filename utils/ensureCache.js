@@ -1,18 +1,30 @@
-const { userCaches, serverCache } = require("../config/caches");
-const Level = require("../models/Level");
-const UserCache = require('../models/UserCache');
-
+const serverCache = require("../config/caches");
 async function ensureCache (req, res, next) {
-  if (userCaches[req.sessionID]) {
-    userCaches[req.sessionID].compareHash();
-    return next();
-  } 
-  userCaches[req.sessionID] = new UserCache(serverCache.hash)
-  if (!serverCache.numLevels) await serverCache.updateLevelCache();  
-  for (const level of Object.values(serverCache.levelCache)) {
-    userCaches[req.sessionID].levelCache[level.id] = new Level(level);
-  }
+  // disable on root path to prevent unnecessary double call when redirected.
+  if (req.path == '/') return next();
+  
+  let { hash, levelCache } = req.session;
+
+  if (!serverCache.initialized) await serverCache.updateLevelCache();
+
+  if (serverCache.matchHash(hash)) return next();
+
+  if (!levelCache) levelCache = serverCache.cacheCopy();
+  else levelCache = filteredCache(levelCache);
+
+  req.session.levelCache = levelCache;
+  req.session.hash = serverCache.hash;
   return next();
 }
 
 module.exports = ensureCache;
+
+
+function filteredCache(cache) {
+  let newCache = Object.assign({}, cache); // because mutating makes me uncomfortable
+  serverCache.recentlyCleared.forEach(entry => {
+    delete newCache[entry];
+  })
+  return newCache;
+}
+

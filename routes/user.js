@@ -1,9 +1,10 @@
 const express = require('express');
 const { userCaches } = require('../config/caches');
+const ensureCache = require('../utils/ensureCache');
 const router = express.Router();
 const styleImages = require('../utils/styleImages');
 
-router.get('/', async (req, res) => {
+router.get('/', ensureCache, async (req, res) => {
   if (!req.session.userID) return res.redirect('/');
   await userCaches[req.sessionID].fetchCompleted(req.session.userID);
   let levelCache = Object.values(userCaches[req.sessionID].completedLevels);

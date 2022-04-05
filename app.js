@@ -4,7 +4,6 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express');
 const app = express();
 const session = require('express-session');
-const ensureCache = require('./utils/ensureCache');
 
 app.set('view engine', 'ejs');
 
@@ -15,7 +14,6 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
-app.use(ensureCache);
 
 app.listen(3000);
 
