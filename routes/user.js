@@ -8,8 +8,8 @@ const styleImages = require('../utils/styleImages');
 router.get('/', ensureCache, async (req, res) => {
   if (!req.session.userID) return res.redirect('/');
   
-  if (!req.session.fetchedOnce) {
-    req.session.fetchedOnce = true;
+  if (!req.session.clearsFetched) {
+    req.session.clearsFetched = true;
     req.session = await fetchClears(req.session);
   }
   

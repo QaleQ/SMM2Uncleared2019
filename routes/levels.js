@@ -13,8 +13,8 @@ router.get('/', ensureCache, (req, res) => {
 
 router.post('/cleared/:id', async (req, res) => {
   try {
-    if (!req.session.fetchedOnce) {
-      req.session.fetchedOnce = true;
+    if (!req.session.clearsFetched) {
+      req.session.clearsFetched = true;
       req.session = await fetchClears(req.session);
     }
     req.session = await clearLevel(req.params.id, req.session);

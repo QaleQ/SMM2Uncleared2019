@@ -11,7 +11,7 @@ async function fetchClears(session) {
     session.clears = clears;
   } catch(err) {
     console.log(err)
-    session.fetchedOnce = false;
+    session.clearsFetched = false;
   }
   return session;
 }
