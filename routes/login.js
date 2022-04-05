@@ -18,7 +18,7 @@ router.route('/')
     
     req.session.userID = loginResult.id;
     req.session.username = loginResult.username;
-    req.session.clears = {};
+    req.session.clears = [];
 
     res.redirect('/levels');
   } catch (err) {

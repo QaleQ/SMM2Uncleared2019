@@ -14,11 +14,8 @@ router.route('/')
 
     if (!sqlResult.length) throw new Error ('No results!')
 
-    req.session.levelCache = {};
-    sqlResult.map(level => {
-      req.session.levelCache[level.id] = level;
-    })
-    // userCaches[req.sessionID].replaceLevels(sqlResult);
+    req.session.levelCache = sqlResult;
+    
     res.redirect('/levels');
   } catch (err) {
     res.send('error, dood' + err.message)

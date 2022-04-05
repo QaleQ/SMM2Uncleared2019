@@ -1,6 +1,6 @@
 <%- include('partials/head') %>
 
-  <% for (let level of Object.values(levelCache)) { %>
+  <% for (let level of levelCache) { %>
     <div class="level">
       <section id="level-top">
         <img class="style-image" src="<%= styleImages[level.style] %>" alt="level.style">
