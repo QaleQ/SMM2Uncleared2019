@@ -1,54 +1,56 @@
 <%- include('partials/head') %>
 
-  <% for (let i = 0; i < levelCache.length; i++) { %>
+  <% for (let level of Object.values(levelCache)) { %>
     <div class="level">
       <section id="level-top">
-        <img class="style-image" src="<%= styleImages[levelCache[i].style] %>" alt="levelCache[i].style">
-        <%= levelCache[i].name %>
+        <img class="style-image" src="<%= styleImages[level.style] %>" alt="level.style">
+        <%= level.level_name %>
       </section>
       <section id="thumb-likes-feet">
         <div class="thumb-and-date">
           <div class="thumbnail">[THUMBNAIL]</div>
           <div class="upload-date">
-            <span><%= levelCache[i].date_day %></span>
-            <span><%= levelCache[i].date_time %></span>
+            <span><%= level.upload_date_date %></span>
+            <span><%= level.upload_date_time %></span>
           </div>
         </div>
         <div class="likes-feet-tags">
           <div class="likes-feet fat-font">
               <img src="assets/smm2_heart-cropped.svg" alt="Likes">
-              <%= levelCache[i].likes %>
+              <%= level.likes %>
               <img class="p-l" src="assets/smm2_feet-cropped.svg" alt="Footprints">
-              <%= levelCache[i].footprints %>
+              <%= level.footprints %>
           </div>
           <div class="tags">
-              <img class="tag-svg" src="assets/smm2_tag-cropped.svg" alt="Tag1">
-              <%= levelCache[i].tag1 %>
-              <% if (levelCache[i].tag2_display) { %>
+            <% if (level.tag1) { %>
+              <img class="tag-svg p-l" src="assets/smm2_tag-cropped.svg" alt="Tag2">
+              <%= level.tag1 %>
+            <% } %>
+              <% if (level.tag2) { %>
                 <img class="tag-svg p-l" src="assets/smm2_tag-cropped.svg" alt="Tag2">
-                <%= levelCache[i].tag2 %>
+                <%= level.tag2 %>
               <% } %>
           </div>
         </div>
       </section>
       <section id="expandable" class="hide">
         <div class="expanded-top-grid">
-          <div class="description etg-item"><%= levelCache[i].description %> </div>
+          <div class="description etg-item"><%= level.description %> </div>
           <div class="clear-check-time etg-item">
             <p class="etg-item-title">Clear check time</p>
-            <%= levelCache[i].upload_time_string %>
+            <%= level.clear_time %>
           </div>
           <div class="attempts etg-item">
             <p class="etg-item-title">Attempts</p>
-            <p class="fat-font">0/<%= levelCache[i].attempts %></p>
+            <p class="fat-font">0/<%= level.attempts %></p>
           </div>
           <div class="level-code etg-item">
             <p class="etg-item-title">Course ID</p>
-            <%= levelCache[i].id_string %>
+            <%= level.level_code %>
           </div>
         </div>
         <div class="expanded-bottom">
-          <form action="/levels/completed/<%= levelCache[i].id %>" method="POST">
+          <form action="/levels/completed/<%= level.id %>" method="POST">
             <button class="eb-btn">Mark As Completed</button>
           </form>
           <!-- <div class="eb-btn eb-btn-disabled" id="mark-as-completed"></div> -->
