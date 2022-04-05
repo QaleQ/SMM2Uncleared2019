@@ -29,7 +29,10 @@ module.exports = function buildFilterString(data) {
   if (style) sql.push(`AND style=:style`);
   if (theme) sql.push(`AND theme=:theme`);
   if (tag1 || tag2) {
-    if (tag1 && tag2 && tag1 !== tag2) {
+    if (tag1 == 'None') {
+      sql.push(`AND ISNULL(tag1)`);
+    }
+    else if (tag1 && tag2 && tag1 !== tag2) {
       sql.push(`AND (tag1=:tag1 OR tag1=:tag2)`);
       sql.push(`AND (tag2=:tag1 OR tag2=:tag2)`);
     }
