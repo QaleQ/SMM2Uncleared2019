@@ -13,17 +13,11 @@ router.route('/')
   try {
     const { username, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 12);
-    const userData = {
-      username,
-      password: hashedPassword,
-    };
     
-    let sql = `INSERT INTO users SET ?`;
-    await queryDB(sql, [userData]);
+    let sql = `INSERT INTO users SET username = :username, password = :password`;
+    await queryDB(sql, { username, password: hashedPassword});
 
-    let loginResult = await login(username, password);
-    req.session.userID = loginResult.id;
-    req.session.username = loginResult.username;
+    req.session = await login(req.body, req.session);
 
     res.redirect('/levels')
   } catch (err) {

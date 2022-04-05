@@ -2,11 +2,26 @@ const queryDB = require('./queryDb');
 const bcrypt = require('bcrypt');
 
 
+async function login(body, session) {
+  let { username, password } = body;
+  try {
+    if (session.username) throw new Error(`Already signed in as ${session.username}`);
+    if (!username.length) throw new Error('Username required');
+    if (!password.length) throw new Error('Password required');
 
-module.exports = async function(user, pass) {
-  let sql = `SELECT * FROM users WHERE username = ?`
-  let { firstResult } = await queryDB(sql, [user]);
-  let approved = bcrypt.compare(pass, firstResult.password);
-  if (!approved) throw new Error('Something went wrong');
-  return { id: firstResult.id, username: firstResult.username }
+    let sql = `SELECT * FROM users WHERE username = :username`
+    let { firstResult } = await queryDB(sql, { username });
+
+    let approved = bcrypt.compare(password, firstResult.password);
+    if (!approved) throw new Error('Something went wrong');
+
+    session.userID = firstResult.id;
+    session.username = firstResult.username;
+  } catch (err) {
+    console.log(err)
+  }
+  return session;
 }
+
+
+module.exports = login;
