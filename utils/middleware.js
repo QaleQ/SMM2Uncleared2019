@@ -34,7 +34,15 @@ function readFlash(req, res, next) {
   next();
 }
 
+// authStatus
+function authStatus(req, res, next) {
+  res.locals.userID = req.session.userID;
+  res.locals.username = req.session.username;
+  next();
+}
+
 module.exports = {
   ensureCache,
-  readFlash
+  readFlash,
+  authStatus
 }

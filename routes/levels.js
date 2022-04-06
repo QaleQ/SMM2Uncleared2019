@@ -8,7 +8,7 @@ const styleImages = require('../utils/styleImages');
 
 router.get('/', ensureCache, readFlash, (req, res) => {
   let { levelCache } = req.session;
-  res.render('levels', { levelCache, req, styleImages });
+  res.render('levels', { levelCache, styleImages });
 })
 
 router.post('/cleared/:id', async (req, res) => {

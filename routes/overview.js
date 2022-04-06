@@ -3,7 +3,7 @@ const router = express.Router();
 const { ensureCache } = require('../utils/middleware');
 
 router.get('/', ensureCache, (req, res) => {
-  res.render('overview', { req });
+  res.render('overview');
 })
 
 module.exports = router;

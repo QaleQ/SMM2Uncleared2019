@@ -5,6 +5,7 @@ const express = require('express');
 const app = express();
 const session = require('express-session');
 const flash = require('connect-flash');
+const { authStatus } = require('./utils/middleware');
 
 
 app.set('view engine', 'ejs');
@@ -18,6 +19,7 @@ app.use(session({
 }));
 
 app.use(flash());
+app.use(authStatus);
 
 app.listen(3000);
 

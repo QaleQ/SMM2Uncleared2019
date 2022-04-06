@@ -14,7 +14,7 @@ router.get('/', ensureCache, readFlash, async (req, res) => {
   }
   
   let levelCache = [...req.session.clears].reverse();
-  res.render('user', { levelCache, req, styleImages });
+  res.render('user', { levelCache, styleImages });
 });
 
 router.post('/uncleared/:id', ensureCache, async (req, res) => {
