@@ -8,6 +8,13 @@ const tabsArr = {
   "user": document.querySelector('#user')
 }
 
+const loginLink = document.querySelector('#loginLink');
+if (loginLink) {
+  loginLink.addEventListener('click', () => {
+    window.location.replace('/login');
+  });
+}
+
 const classLevelArr = document.querySelectorAll('.level');
 let currentExpandedLevel;
 

@@ -269,7 +269,9 @@ body {
 
 
 .eb-btn {
+  color: var(--main-dark-color);
   font-size: 1.6em;
+  font-family: Mukta;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -278,7 +280,14 @@ body {
   width: 14em;
   height: 3.3em;
 }
-
+.eb-btn a {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
 
 .form-big,
 .form {
