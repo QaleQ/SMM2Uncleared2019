@@ -37,9 +37,8 @@ module.exports = function buildFilterString(data) {
       sql.push(`AND (tag2=:tag1 OR tag2=:tag2)`);
     }
     else {
-      let tag = tag1 ? tag1 : tag2;
-      req.body.tag = tag;
-      sql.push(`AND (tag1=:tag OR tag2=:tag)`)
+      let tag = tag1.length ? `tag1` : `tag2`;
+      sql.push(`AND (tag1=:${tag} OR tag2=:${tag})`)
     }
   }
   let validSortOrders = ['ASC', 'DESC'];
