@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const queryDB = require('../utils/queryDb');
 const buildFilterString = require('../utils/buildFilterString');
-const readFlash = require('../utils/readFlash');
+const { readFlash } = require('../utils/middleware');
 
 router.route('/')
 .get(readFlash, (req, res) => {

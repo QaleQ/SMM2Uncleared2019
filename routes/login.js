@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const login = require('../utils/login');
-const readFlash = require('../utils/readFlash');
+const { readFlash } = require('../utils/middleware');
 
 
 router.route('/')

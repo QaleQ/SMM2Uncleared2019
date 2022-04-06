@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const login = require('../utils/login');
 const queryDB = require('../utils/queryDb');
-const readFlash = require('../utils/readFlash');
+const { readFlash } = require('../utils/middleware');
 
 
 router.route('/')

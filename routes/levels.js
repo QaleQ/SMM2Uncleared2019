@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const clearLevel = require('../utils/clearLevel');
-const ensureCache = require('../utils/ensureCache');
+const { ensureCache, readFlash } = require('../utils/middleware');
 const fetchClears = require('../utils/fetchClears');
 const styleImages = require('../utils/styleImages');
-const readFlash = require('../utils/readFlash');
 
 
 router.get('/', ensureCache, readFlash, (req, res) => {

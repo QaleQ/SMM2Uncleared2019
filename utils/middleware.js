@@ -1,4 +1,6 @@
+// ensureCache
 const serverCache = require("../config/caches");
+
 async function ensureCache (req, res, next) {
   let { hash, levelCache } = req.session;
 
@@ -15,14 +17,24 @@ async function ensureCache (req, res, next) {
 
   req.session.levelCache = levelCache;
   req.session.hash = serverCache.hash;
-  return next();
+  next();
 }
-
-module.exports = ensureCache;
-
 
 function filteredCache(cache) {
   return cache.filter(level => {
     return !serverCache.clearedLevels.has(level.id)
   });
+}
+
+// readFlash
+function readFlash(req, res, next) {
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
+  res.locals.info = req.flash('info');
+  next();
+}
+
+module.exports = {
+  ensureCache,
+  readFlash
 }
