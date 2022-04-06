@@ -1,6 +1,5 @@
 const dbConnection = require("../config/dbConnection");
 
-// not happy about this mutating...
 module.exports = function buildFilterString(data) {
   let sql = [`SELECT * FROM levels WHERE ISNULL(cleared_by)`]
   let {

@@ -3,12 +3,11 @@ const router = express.Router();
 const clearLevel = require('../utils/clearLevel');
 const { ensureCache, readFlash } = require('../utils/middleware');
 const fetchClears = require('../utils/fetchClears');
-const styleImages = require('../utils/styleImages');
 
 
 router.get('/', ensureCache, readFlash, (req, res) => {
   let { levelCache } = req.session;
-  res.render('levels', { levelCache, styleImages });
+  res.render('levels', { levelCache });
 })
 
 router.post('/cleared/:id', async (req, res) => {

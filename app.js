@@ -5,7 +5,7 @@ const express = require('express');
 const app = express();
 const session = require('express-session');
 const flash = require('connect-flash');
-const { authStatus } = require('./utils/middleware');
+const { passInfo } = require('./utils/middleware');
 
 
 app.set('view engine', 'ejs');
@@ -19,7 +19,7 @@ app.use(session({
 }));
 
 app.use(flash());
-app.use(authStatus);
+app.use(passInfo);
 
 app.listen(3000);
 
@@ -35,6 +35,6 @@ app.get('/', (req, res) => {
   res.redirect('/levels')
 });
 
-app.get('/*', (req, res) => {
+app.get('*', (req, res) => {
   res.redirect('/levels');
 })

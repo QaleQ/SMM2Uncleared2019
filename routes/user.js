@@ -3,7 +3,6 @@ const clearLevel = require('../utils/clearLevel');
 const router = express.Router();
 const { ensureCache, readFlash } = require('../utils/middleware');
 const fetchClears = require('../utils/fetchClears');
-const styleImages = require('../utils/styleImages');
 
 router.get('/', ensureCache, readFlash, async (req, res) => {
   if (!req.session.userID) return res.redirect('/');
@@ -14,7 +13,7 @@ router.get('/', ensureCache, readFlash, async (req, res) => {
   }
   
   let levelCache = [...req.session.clears].reverse();
-  res.render('user', { levelCache, styleImages });
+  res.render('levels', { levelCache });
 });
 
 router.post('/uncleared/:id', ensureCache, async (req, res) => {

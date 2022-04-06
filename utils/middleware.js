@@ -1,5 +1,5 @@
 // ensureCache
-const serverCache = require("../config/caches");
+const serverCache = require("../config/serverCache");
 
 async function ensureCache (req, res, next) {
   let { hash, levelCache } = req.session;
@@ -34,8 +34,16 @@ function readFlash(req, res, next) {
   next();
 }
 
-// authStatus
-function authStatus(req, res, next) {
+// passInfo
+function passInfo(req, res, next) {
+  res.locals.styleImages = {
+  'SMB1': 'https://seeklogo.com/images/S/super-mario-bros-logo-B712683EBE-seeklogo.com.png',
+  'SMB3': 'https://seeklogo.com/images/S/super-mario-bros-3-logo-3F9AF3A1F1-seeklogo.com.png',
+  'SMW': 'https://seeklogo.com/images/S/super-mario-world-logo-CC25D10D3A-seeklogo.com.png',
+  'NSMBU': 'https://static.wikia.nocookie.net/logopedia/images/e/e7/NSMBU_2D_Logo.svg',
+  'SM3DW': 'https://static.wikia.nocookie.net/logopedia/images/e/e7/Logo_EN_-_Super_Mario_3D_World.png'
+  }
+  res.locals.path = req.originalUrl;
   res.locals.userID = req.session.userID;
   res.locals.username = req.session.username;
   next();
@@ -44,5 +52,5 @@ function authStatus(req, res, next) {
 module.exports = {
   ensureCache,
   readFlash,
-  authStatus
+  passInfo
 }

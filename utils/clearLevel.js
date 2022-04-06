@@ -1,4 +1,4 @@
-const serverCache = require("../config/caches");
+const serverCache = require("../config/serverCache");
 const queryDB = require("./queryDb");
 
 async function clearLevel(levelID, session, clear = true) {
