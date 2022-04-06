@@ -3,7 +3,7 @@ const router = express.Router();
 
 router.post('/', (req, res) => {
   req.session.destroy();
-  res.redirect('/');
+  res.redirect('/levels');
 });
 
 module.exports = router;

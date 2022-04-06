@@ -18,7 +18,7 @@ router.post('/cleared/:id', async (req, res) => {
       req.session = await fetchClears(req.session);
     }
     req.session = await clearLevel(req.params.id, req.session);
-    res.redirect('/');
+    res.redirect('/levels');
   } catch (err) {
     res.send(err.message)
     // res.render('levels', { levels: req.session.userData, req, styleImages, err});

@@ -3,8 +3,7 @@ const router = express.Router();
 const login = require('../utils/login');
 
 router.route('/')
-.get((req, res) => {
-  if (req.session.username) res.redirect('/');
+  if (req.session.username) res.redirect('/levels');
   res.render('login');
 })
 .post(async (req, res) => {
