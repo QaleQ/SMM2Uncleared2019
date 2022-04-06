@@ -11,8 +11,7 @@ async function login(body, session) {
 
   let sql = `SELECT * FROM users WHERE username = :username`
   let { firstResult } = await queryDB(sql, { username });
-
-  let approved = bcrypt.compare(password, firstResult.password);
+  let approved = await bcrypt.compare(password, firstResult.password);
   if (!approved) throw new Error('Something went wrong');
 
   session.userID = firstResult.id;
