@@ -4,9 +4,10 @@ const clearLevel = require('../utils/clearLevel');
 const ensureCache = require('../utils/ensureCache');
 const fetchClears = require('../utils/fetchClears');
 const styleImages = require('../utils/styleImages');
+const readFlash = require('../utils/readFlash');
 
 
-router.get('/', ensureCache, (req, res) => {
+router.get('/', ensureCache, readFlash, (req, res) => {
   let { levelCache } = req.session;
   res.render('levels', { levelCache, req, styleImages });
 })
@@ -20,8 +21,8 @@ router.post('/cleared/:id', async (req, res) => {
     req.session = await clearLevel(req.params.id, req.session);
     res.redirect('/levels');
   } catch (err) {
-    res.send(err.message)
-    // res.render('levels', { levels: req.session.userData, req, styleImages, err});
+    req.flash('error', err.message);
+    res.redirect('/levels')
   }
 })
 

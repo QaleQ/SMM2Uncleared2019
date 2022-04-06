@@ -1,8 +1,6 @@
 <%- include('partials/head') %>
+<%- include('partials/flash') %>
 
-<% if (typeof err !== 'undefined') { %>
-  <span class="error">Something went wrong: <%= err %> </span>
-<% } %> 
 <form autocomplete="off" class="form" action="/signup" method="POST" id="signup-form">
   <span>Sign up</span>
   <input type="text" name="username" placeholder="Username" minlength="3">

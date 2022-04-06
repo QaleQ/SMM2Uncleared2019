@@ -1,13 +1,12 @@
 <%- include('partials/head') %>
+<%- include('partials/flash') %>
 
-<% if (typeof err !== 'undefined') { %>
-  <span class="error">Something went wrong: <%= err %> </span>
-<% } %>
 <form autocomplete="off" class="form" action="/login" method="POST" id="login-form">
   <span>Log in</span>
-  <input type="text" name="username" placeholder="Username" />
-  <input type="password" name="password" placeholder="Password" />
+  <input type="text" name="username" placeholder="Username" required />
+  <input type="password" name="password" placeholder="Password" required />
   <p>No account? <a href="./signup">Sign up</a></p>
   <button class="form-button">Log in</button>
 </form>
+
 <%- include('partials/foot') %>

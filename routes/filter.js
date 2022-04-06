@@ -2,24 +2,25 @@ const express = require('express');
 const router = express.Router();
 const queryDB = require('../utils/queryDb');
 const buildFilterString = require('../utils/buildFilterString');
+const readFlash = require('../utils/readFlash');
 
 router.route('/')
-.get((req, res) => {
-  res.render('filter', { req });
+.get(readFlash, (req, res) => {
+  res.render('filter');
 })
 .post(async (req, res) => {
   try {
     let sql = buildFilterString(req.body);
     let { sqlResult } = await queryDB(sql, req.body);
 
-    if (!sqlResult.length) throw new Error ('No results!')
+    if (!sqlResult.length) throw new Error('No results!')
 
     req.session.levelCache = sqlResult;
     
     res.redirect('/levels');
   } catch (err) {
-    res.send('error, dood' + err.message)
-    // res.render('filter', {err})
+    req.flash('error', err.message)
+    res.redirect('/filter')
   }
 })
 

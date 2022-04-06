@@ -4,6 +4,8 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express');
 const app = express();
 const session = require('express-session');
+const flash = require('connect-flash');
+
 
 app.set('view engine', 'ejs');
 
@@ -14,6 +16,8 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
+
+app.use(flash());
 
 app.listen(3000);
 

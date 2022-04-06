@@ -1,7 +1,6 @@
 <%- include('partials/head') %>
-<% if (typeof err != 'undefined') { %>
-  <span class="err">Something went wrong: <%= err.message %> </span>
-<% } %>
+<%- include('partials/flash') %>
+
 <form action="/filter" class="form-big" method="POST">
   <p class="filter-paragraph">
     <label for="match_field">Match:</label>

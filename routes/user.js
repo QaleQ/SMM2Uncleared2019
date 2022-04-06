@@ -3,9 +3,10 @@ const clearLevel = require('../utils/clearLevel');
 const router = express.Router();
 const ensureCache = require('../utils/ensureCache');
 const fetchClears = require('../utils/fetchClears');
+const readFlash = require('../utils/readFlash');
 const styleImages = require('../utils/styleImages');
 
-router.get('/', ensureCache, async (req, res) => {
+router.get('/', ensureCache, readFlash, async (req, res) => {
   if (!req.session.userID) return res.redirect('/');
   
   if (!req.session.clearsFetched) {
@@ -25,8 +26,8 @@ router.post('/uncleared/:id', ensureCache, async (req, res) => {
     req.session = await clearLevel(req.params.id, req.session, false);
     res.redirect('/user');
   } catch (err) {
-    res.send(err.message)
-    // res.render('levels', { levels: req.session.userData, req, styleImages, err});
+    req.flash('error', err.message)
+    res.redirect('/user')
   }
 })
 

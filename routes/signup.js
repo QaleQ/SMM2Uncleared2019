@@ -3,10 +3,11 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const login = require('../utils/login');
 const queryDB = require('../utils/queryDb');
+const readFlash = require('../utils/readFlash');
 
 
 router.route('/')
-.get((req, res) => {
+.get(readFlash, (req, res) => {
   res.render('signup');
 })
 .post(async (req, res) => {
@@ -21,7 +22,8 @@ router.route('/')
 
     res.redirect('/levels')
   } catch (err) {
-    res.render('signup', { err });
+    req.flash('error', 'Something went wrong!')
+    res.redirect('/signup')
   }
 });
 
