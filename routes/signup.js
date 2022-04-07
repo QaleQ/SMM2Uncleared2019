@@ -10,7 +10,7 @@ const validateAuth = require('../utils/validateAuth');
 router.route('/')
 .get(readFlash, (req, res) => {
   if (req.session.loggedIn) res.redirect('/levels');
-  res.render('signup');
+  res.render('authform', { action: 'signup', action_str: 'Sign up'});
 })
 .post(async (req, res) => {
   try {

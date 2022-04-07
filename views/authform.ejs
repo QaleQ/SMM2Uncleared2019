@@ -1,0 +1,17 @@
+<%- include('partials/head') %>
+<%- include('partials/flash') %>
+
+<form autocomplete="off" class="form" action="/<%= action %>" method="POST" id="login-form">
+
+  <span><%= action_str %></span>
+  <input type="text" name="username" placeholder="Username" required pattern="^\w{3,30}"
+  title="Must contain 3-30 characters. Valid characters: 0-9 A-Z and _" />
+  <input type="password" name="password" placeholder="Password" required pattern="^.{6,60}"
+  title="Must contain 6-60 characters" />
+  <% if (path === '/login') { %>
+    <p>No account? <a href="./signup">Sign up</a></p>
+  <% } %>
+  <button class="form-button"><%= action_str %></button>
+</form>
+
+<%- include('partials/foot') %>
